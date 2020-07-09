@@ -8,3 +8,16 @@
 puts "Clearing database..."
 Comment.destroy_all
 Post.destroy_all
+
+@yusuke = User.create!(
+  email: "yusuke@gmail.com",
+  password: "123456"
+)
+
+puts "Done creating yusuke"
+5 times do
+  post = Post.create!(
+    title:
+    content:
+  )
+end
