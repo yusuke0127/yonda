@@ -5,6 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
+
 puts "Clearing database..."
 Comment.destroy_all
 Post.destroy_all
@@ -15,9 +17,15 @@ Post.destroy_all
 )
 
 puts "Done creating yusuke"
-5 times do
-  post = Post.create!(
-    title:
-    content:
+
+5.times do
+  post = Post.new(
+    title: Faker::Book.title,
+    content: Faker::Quote.famous_last_words
   )
+
+  post.user = @yusuke
+  post.save!
 end
+
+puts 'Done!'
