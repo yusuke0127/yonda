@@ -1,3 +1,13 @@
 <h1>Show page</h1>
-<%= @post.title %>
-<%= link_to "Back", posts_path %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 offset-sm-3">
+      <div class="post-item">
+        <h3><%= @post.title %></h3>
+        <small>posted by:<%= @post.user.email %></small>
+        <p><%= @post.content %></p>
+      </div>
+      <%= link_to "Back", posts_path %>
+    </div>
+  </div>
+</div>
