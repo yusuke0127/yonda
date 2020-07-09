@@ -20,10 +20,10 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
     authorize @post
-    if @post.save!
+    if @post.save
       redirect_to post_path(@post)
     else
-      render :new
+      render 'index'
     end
   end
 
