@@ -25,6 +25,7 @@ class CommentsController < ApplicationController
 
   def edit
     @comment = Comment.find(params[:id])
+    @post = Post.find(params[:post_id])
     authorize @comment
   end
 
