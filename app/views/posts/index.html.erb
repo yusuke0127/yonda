@@ -1,6 +1,4 @@
-<h1>Index page</h1>
 <div class="container">
-  <%= link_to "Add post", new_post_path %>
   <%= render 'form', post: @post %>
   <% @posts.each do |post| %>
     <div class="row">

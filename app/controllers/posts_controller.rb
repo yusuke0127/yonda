@@ -8,6 +8,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comments = @post.comments
+    @comment = Comment.new
     authorize @post
   end
 
@@ -23,7 +25,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to post_path(@post)
     else
-      render 'index'
+      render :index
     end
   end
 
