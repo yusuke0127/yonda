@@ -37,6 +37,7 @@
             <hr>
             <p><%= comment.content %></p>
             <small>posted by:<%= comment.post.user.email %></small>
+            <%= link_to "Edit", edit_post_comment_path(comment) %>
           </div>
         <% end %>
       </div>
