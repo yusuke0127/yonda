@@ -6,8 +6,9 @@
         <h2><%= @post.title %></h2>
         <small>posted by:<%= @post.user.email %></small>
         <p><%= @post.content %></p>
+        <%= link_to "Edit", edit_post_path(@post), class: "btn btn-primary" %>
       </div>
-      <%= link_to "Back", posts_path %>
+      <%= link_to "Back", posts_path, class: "btn btn-primary" %>
     </div>
   </div>
   <% if user_signed_in? %>
