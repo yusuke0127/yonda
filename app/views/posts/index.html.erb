@@ -1,5 +1,7 @@
 <div class="container">
-  <%= render 'form', post: @post %>
+  <% if user_signed_in? %>
+    <%= render 'form', post: @post %>
+  <% end %>
   <% @posts.each do |post| %>
     <div class="row">
       <div class="col-xs-12 col-sm-6 offset-sm-3">
