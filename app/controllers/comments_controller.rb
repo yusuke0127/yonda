@@ -16,8 +16,11 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment.post = @post
     authorize @comment
-    @comment.save!
-    redirect_to post_path(@post)
+    if @comment.save
+      redirect_to post_path(@post)
+    else
+      render :new
+    end
   end
 
   private
