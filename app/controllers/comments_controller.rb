@@ -29,6 +29,17 @@ class CommentsController < ApplicationController
     authorize @comment
   end
 
+  def update
+    @comment = Comment.find(params[:id])
+    @post = Post.find(params[:post_id])
+    authorize @comment
+    if @comment.update(comment_params)
+      redirect_to post_path(@post)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def comment_params
