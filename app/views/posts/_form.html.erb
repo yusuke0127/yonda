@@ -6,7 +6,7 @@
       <%= simple_form_for(@post) do |f| %>
         <%= f.input :title %>
         <%= f.input :content %>
-        <%= f.input :category_list, label: "Add tags", hint: "Add your tags, separated by commas" %>
+        <%#= f.input :category_list, label: "Add tags", hint: "Add your tags, separated by commas" %>
         <%= f.input :category_list, as: :check_boxes, collection: collection %>
         <%= f.submit "Confirm", class: "btn btn-primary" %>
       <% end %>
