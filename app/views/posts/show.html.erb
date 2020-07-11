@@ -37,8 +37,12 @@
             <hr>
             <p><%= comment.content %></p>
             <small>posted by:<%= comment.post.user.email %></small>
-            <%= link_to "Edit", edit_post_comment_path(@post, comment) %>
-            <%= link_to "Delete", comment_path(comment), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger"  %>
+            <% if policy(comment).update? %>
+              <%= link_to "Edit", edit_post_comment_path(@post, comment) %>
+            <% end %>
+            <% if policy(comment).destroy? %>
+              <%= link_to "Delete", comment_path(comment), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger"  %>
+            <% end %>
           </div>
         <% end %>
       </div>
