@@ -2,9 +2,12 @@
   <div class="col-xs-12 col-sm-6 offset-sm-3">
     <div class="post-item-form">
       <h3>Add a post</h3>
+      <% collection = [ "Sports", "News", "Music" ]%>
       <%= simple_form_for(@post) do |f| %>
         <%= f.input :title %>
         <%= f.input :content %>
+        <%= f.input :category_list, label: "Add tags", hint: "Add your tags, separated by commas" %>
+        <%= f.input :category_list, as: :check_boxes, collection: collection %>
         <%= f.submit "Confirm", class: "btn btn-primary" %>
       <% end %>
     </div>
