@@ -1,4 +1,3 @@
-<h1>Show page</h1>
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-6 offset-sm-3">
@@ -59,4 +58,27 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 offset-sm-3">
+      <div class="post-item">
+        <h2>Related post</h2>
+      </div>
+    </div>
+  </div>
+  <% @related_posts.each do |post| %>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 offset-sm-3">
+        <div class="post-item">
+          <small>posted by:<%= post.user.email %></small>
+          <h3><%= link_to post.title, post_path(post) %></h3>
+          <% post.category_list.each do |category| %>
+            <p>
+              <%= link_to category, categorized_path(category: category)  %>
+            </p>
+          <% end %>
+          <p><%= post.content %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
