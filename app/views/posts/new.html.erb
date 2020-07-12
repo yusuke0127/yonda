@@ -1,17 +1,4 @@
-<h1>Add post </h1>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 offset-sm-3">
-      <div class="post-item">
-        <%= simple_form_for(@post) do |f| %>
-          <%= f.input :title %>
-          <%= f.input :content %>
-          <%= f.input :tag_list, label: "Add tags", hint: "Add your tags, separated by commas" %>
-          <!-- Add tags as checkboxes -->
-          <%#= f.input :tag_list, as: :check_boxes, collection: [ "Pass your collection here" ] %>
-          <%= f.submit "Add Post", class: "btn btn-primary" %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
+<!--  -->
+<% if user_signed_in? %>
+  <%= render 'form', post: @post %>
+<% end %>
