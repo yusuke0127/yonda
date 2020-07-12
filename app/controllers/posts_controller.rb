@@ -51,6 +51,15 @@ class PostsController < ApplicationController
     redirect_to posts_path
   end
 
+  def categorized
+    if params[:category].present?
+      @posts = Post.tagged_with(params[:category])
+      authorize @posts
+    else
+      redirect_to posts_path
+    end
+  end
+
   private
 
   def post_params

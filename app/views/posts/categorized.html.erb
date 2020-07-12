@@ -1,0 +1,24 @@
+<h2>Categorized page</h2>
+<div class="row">
+  <div class="col-xs-12 col-sm-6 offset-sm-3">
+    <div class="post-item">
+      <%= link_to "Back", posts_path %>
+    </div>
+  </div>
+  <% @posts.each do |post| %>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 offset-sm-3">
+      <div class="post-item">
+        <small>posted by:<%= post.user.email %></small>
+        <h3><%= link_to post.title, post_path(post) %></h3>
+        <% post.category_list.each do |category| %>
+          <p>
+            <%= link_to category, categorized_path(category: category)  %>
+          </p>
+        <% end %>
+        <p><%= post.content %></p>
+      </div>
+    </div>
+  </div>
+<% end %>

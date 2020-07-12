@@ -5,4 +5,6 @@ Rails.application.routes.draw do
     resources :comments, only: [:index, :new, :create, :edit, :update]
   end
   resources :comments, only: [ :destroy ]
+  get '/categorized', to: "posts#categorized", as: :categorized
+
 end
