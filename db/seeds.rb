@@ -8,6 +8,7 @@
 require 'faker'
 
 puts "Clearing database..."
+User.destroy_all
 Comment.destroy_all
 Post.destroy_all
 
