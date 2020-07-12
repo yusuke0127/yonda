@@ -32,6 +32,8 @@ gem 'acts-as-taggable-on', '~> 6.0'
 gem 'devise'
 gem 'faker'
 gem 'pundit'
+gem 'pg_search', '~> 2.3.0'
+
 
 
 gem 'autoprefixer-rails'

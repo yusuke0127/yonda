@@ -1,4 +1,12 @@
 <div class="container">
+  <%= form_tag movies_path, method: :get do %>
+    <%= text_field_tag :query,
+    params[:query],
+    class: "form-control",
+    placeholder: "Find a movie"
+  %>
+    <%= submit_tag "Search", class: "btn btn-primary" %>
+  <% end %>
   <% if user_signed_in? %>
     <%= render 'form', post: @post %>
   <% end %>

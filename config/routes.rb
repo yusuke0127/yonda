@@ -6,5 +6,5 @@ Rails.application.routes.draw do
   end
   resources :comments, only: [ :destroy ]
   get '/categorized', to: "posts#categorized", as: :categorized
-
+  get '/searched', to: "posts#searched", as: :searched
 end

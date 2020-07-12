@@ -61,6 +61,13 @@ class PostsController < ApplicationController
     end
   end
 
+  # def searched
+  #   if params[:query].present?
+  #     @posts =
+  #     else
+  #     end
+  # end
+
   private
 
   def post_params
