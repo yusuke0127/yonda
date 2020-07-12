@@ -12,6 +12,11 @@
       <div class="post-item">
         <h2><%= @post.title %></h2>
         <small>posted by:<%= @post.user.email %></small>
+        <% @post.category_list.each do |category| %>
+          <p>
+            <%= link_to category, categorized_path(category: category)  %>
+          </p>
+        <% end %>
         <p><%= @post.content %></p>
         <% if policy(@post).update? %>
           <%= link_to "Edit", edit_post_path(@post), class: "btn btn-primary" %>
