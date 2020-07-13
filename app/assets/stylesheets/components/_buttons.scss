@@ -10,6 +10,19 @@
   background: #68b3e8;
   color: white;
 }
+.btn-flat-add {
+  color: white;
+  // padding: 8px 24px;
+  border-radius: 4px;
+  background: #68c2e8;
+  transition: background 0.3s ease;
+  width: 22%;
+}
+
+.btn-flat-add:hover {
+  background: #68b3e8;
+  color: white;
+}
 
 
 .btn-ghost {

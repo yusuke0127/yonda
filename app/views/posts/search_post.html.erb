@@ -1,8 +1,10 @@
-<h2>Search results</h2>
 <div class="row">
   <div class="col-xs-12 col-sm-6 offset-sm-3">
     <div class="post-item">
-      <%= link_to "Back", posts_path, class: "btn btn-primary" %>
+      <%= link_to posts_path, class: "post-info-comment-count" do %>
+        <i class="fas fa-arrow-circle-left"></i>
+      <% end %>
+      <span>Search results:</span>
     </div>
   </div>
 </div>
@@ -10,14 +12,15 @@
   <div class="row">
     <div class="col-xs-12 col-sm-6 offset-sm-3">
       <div class="post-item">
-        <small>posted by:<%= post.user.email %></small>
-        <h3><%= link_to post.title, post_path(post) %></h3>
+        <small class="post-info-email">posted by:<%= post.user.email %></small>
+        <h3><%= link_to post.title.capitalize, post_path(post), class: "post-info-title" %></h3>
         <% post.category_list.each do |category| %>
-          <p>
-            <%= link_to category, categorized_path(category: category)  %>
-          </p>
+          <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
         <% end %>
         <p><%= post.content %></p>
+        <%= link_to post_path(post), class: "post-info-comment-count" do %>
+          <i class="far fa-comment-dots"></i> <%= post.comments.count %>
+        <% end %>
       </div>
     </div>
   </div>

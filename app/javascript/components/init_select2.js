@@ -4,8 +4,8 @@ import 'select2';
 const initSelect2 = () => {
   $('.select2').select2({
       tags: true,
-      placeholder: "Add Category   ▾",
-      width: '70%'
+      placeholder: "Add Category",
+      width: '76%'
     });
 };
 
