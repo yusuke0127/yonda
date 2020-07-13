@@ -28,4 +28,8 @@ class PostPolicy < ApplicationPolicy
   def categorized?
     true
   end
+
+  def search?
+    true
+  end
 end
