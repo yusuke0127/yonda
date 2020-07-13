@@ -15,11 +15,12 @@
           <div class="row">
             <div class="col-sm-12">
               <div class="post-item">
-                <small>posted by:<%= post.user.email %></small>
-                <h3><%= link_to post.title.capitalize, post_path(post) %></h3>
+                <small class="post-info-email">posted by:<%= post.user.email %></small>
+                <h3><%= link_to post.title.capitalize, post_path(post), class: "post-info-title" %></h3>
                 <% post.category_list.each do |category| %>
-                  <%= link_to category, categorized_path(category: category)  %>
+                  <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
                 <% end %>
+                <br>
                 <p><%= post.content %></p>
               </div>
             </div>
