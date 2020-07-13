@@ -12,15 +12,21 @@
   <div class="row">
     <div class="col-xs-12 col-sm-6 offset-sm-3">
       <div class="post-item">
-        <small class="post-info-email">posted by:<%= post.user.email %></small>
-        <h3><%= link_to post.title.capitalize, post_path(post), class: "post-info-title" %></h3>
-        <% post.category_list.each do |category| %>
-          <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
-        <% end %>
-        <p><%= post.content %></p>
-        <%= link_to post_path(post), class: "post-info-comment-count" do %>
-          <i class="far fa-comment-dots"></i> <%= post.comments.count %>
-        <% end %>
+        <div>
+          <small class="post-info-email">posted by:<%= post.user.email %></small>
+          <h3><%= link_to post.title.capitalize, post_path(post), class: "post-info-title" %></h3>
+          <% post.category_list.each do |category| %>
+            <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
+          <% end %>
+        </div>
+        <div class="post-item-content">
+          <p><%= post.content %></p>
+        </div>
+        <div class="post-item-bottom">
+          <%= link_to post_path(post), class: "post-info-comment-count" do %>
+            <i class="far fa-comment-dots"></i> <%= post.comments.count %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

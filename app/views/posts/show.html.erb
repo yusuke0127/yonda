@@ -7,57 +7,64 @@
             <%= link_to posts_path, class: "post-info-comment-count" do %>
               <i class="fas fa-arrow-circle-left"></i>
             <% end %>
-            <br>
-            <small class="post-info-email">posted by:<%= @post.user.email %></small>
-            <h2><%= @post.title.capitalize %></h2>
-            <% @post.category_list.each do |category| %>
-              <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
-            <% end %>
-            <p><%= @post.content %></p>
-            <% if policy(@post).update? %>
-              <%= link_to edit_post_path(@post), class: "post-info-comment-count" do %>
-                <i class="fas fa-edit"></i>
+            <div>
+              <small class="post-info-email">posted by:<%= @post.user.email %></small>
+              <h2><%= @post.title.capitalize %></h2>
+              <% @post.category_list.each do |category| %>
+                <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
               <% end %>
-            <% end %>
-            <% if policy(@post).destroy? %>
-              <%= link_to post_path(@post), method: :delete, data: { confirm: "Are you sure?"}, class: "post-info-comment-count" do %>
-                <i class="fas fa-trash-alt"></i>
+            </div>
+            <div class="post-item-content">
+              <p><%= @post.content %></p>
+            </div>
+            <div class="post-item-bottom">
+              <% if policy(@post).update? %>
+                <%= link_to edit_post_path(@post), class: "post-info-comment-count" do %>
+                  <i class="fas fa-edit"></i>
+                <% end %>
               <% end %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <% if user_signed_in? %>
-        <div class="row">
-          <div class="col-xs-12 col-sm-12">
-            <div class="post-item-form">
-              <%= simple_form_for [ @post, @comment ] do |f| %>
-                <%= f.input :content %>
-                <%= f.submit  "Add Comment", class: "btn btn-flat" %>
+              <% if policy(@post).destroy? %>
+                <%= link_to post_path(@post), method: :delete, data: { confirm: "Are you sure?"}, class: "post-info-comment-count" do %>
+                  <i class="fas fa-trash-alt"></i>
+                <% end %>
               <% end %>
             </div>
           </div>
         </div>
-      <% end %>
+      </div>
       <div class="row">
         <div class="col-xs-12 col-sm-12">
           <div class="comment-item-list">
             <h2>Comments</h2>
+            <div class="comment-item-form">
+              <%= simple_form_for [ @post, @comment ] do |f| %>
+                <%= f.input :content, label: false, placeholder: "What's your thought?" %>
+                <div class="post-item-bottom">
+                  <%= f.submit  "Comment", class: "btn btn-flat" %>
+                </div>
+              <% end %>
+            </div>
             <% @post.comments.each do |comment| %>
               <div class="comment-item">
                 <hr>
-                <small class="post-info-email">commented by:<%= comment.post.user.email %></small>
-                <p><%= comment.content %></p>
-                <% if policy(comment).update? %>
-                  <%= link_to edit_post_path(@post), class: "post-info-comment-count" do %>
-                    <i class="fas fa-edit"></i>
+                <div>
+                  <small class="post-info-email">commented by:<%= comment.post.user.email %></small>
+                </div>
+                <div class="post-item-content">
+                  <p><%= comment.content %></p>
+                </div>
+                <div class="post-item-bottom">
+                  <% if policy(comment).update? %>
+                    <%= link_to edit_post_path(@post), class: "post-info-comment-count" do %>
+                      <i class="fas fa-edit"></i>
+                    <% end %>
                   <% end %>
-                <% end %>
-                <% if policy(comment).destroy? %>
-                  <%= link_to post_path(@post), method: :delete, data: { confirm: "Are you sure?"}, class: "post-info-comment-count" do %>
-                    <i class="fas fa-trash-alt"></i>
+                  <% if policy(comment).destroy? %>
+                    <%= link_to post_path(@post), method: :delete, data: { confirm: "Are you sure?"}, class: "post-info-comment-count" do %>
+                      <i class="fas fa-trash-alt"></i>
+                    <% end %>
                   <% end %>
-                <% end %>
+                </div>
               </div>
             <% end %>
           </div>
@@ -68,7 +75,7 @@
       <div class="row">
         <div class="col-xs-12 col-sm-12">
           <div class="post-item">
-            <h2>Related post</h2>
+            <h2>Related post:</h2>
           </div>
         </div>
       </div>
@@ -76,12 +83,21 @@
         <div class="row">
           <div class="col-xs-12 col-sm-12">
             <div class="post-item">
-              <small class="post-info-email">commented by:<%= post.user.email %></small>
-              <h3><%= link_to post.title.capitalize, post_path(post), class: "post-info-title" %></h3>
-              <% post.category_list.each do |category| %>
-                <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
-              <% end %>
-              <p><%= post.content %></p>
+              <div>
+                <small class="post-info-email">commented by:<%= post.user.email %></small>
+                <h3><%= link_to post.title.capitalize, post_path(post), class: "post-info-title" %></h3>
+                <% post.category_list.each do |category| %>
+                  <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
+                <% end %>
+              </div>
+              <div class="post-item-content">
+                <p><%= post.content %></p>
+              </div>
+              <div class="post-item-bottom">
+                <%= link_to post_path(post), class: "post-info-comment-count" do %>
+                  <i class="far fa-comment-dots"></i> <%= post.comments.count %>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
