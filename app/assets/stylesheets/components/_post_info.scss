@@ -36,6 +36,15 @@
   min-height: 100px;
   border-radius: 2px;
 }
+.post-item-content-show {
+  padding: 8px;
+  // box-shadow: 0 2px 2px rgba(0,0,0,0.08);
+  border: 1px solid #E7E7E7;
+  margin-top: 24px;
+  margin-bottom: 16px;
+  min-height: 160px;
+  border-radius: 2px;
+}
 .post-item-bottom {
   display: flex;
   justify-content: flex-end
