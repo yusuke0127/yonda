@@ -1,84 +1,90 @@
-<div class="container">
+<div class="container mt-5">
   <div class="row">
-    <div class="col-xs-12 col-sm-6 offset-sm-3">
-      <div class="post-item">
-        <%= link_to "Back", posts_path, class: "btn btn-primary" %>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 offset-sm-3">
-      <div class="post-item">
-        <h2><%= @post.title %></h2>
-        <small>posted by:<%= @post.user.email %></small>
-        <% @post.category_list.each do |category| %>
-          <p>
-            <%= link_to category, categorized_path(category: category)  %>
-          </p>
-        <% end %>
-        <p><%= @post.content %></p>
-        <% if policy(@post).update? %>
-          <%= link_to "Edit", edit_post_path(@post), class: "btn btn-primary" %>
-        <% end %>
-        <% if policy(@post).destroy? %>
-          <%= link_to "Delete", post_path(@post), method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-primary" %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <% if user_signed_in? %>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 offset-sm-3">
-        <div class="post-item-form">
-          <%= simple_form_for [ @post, @comment ] do |f| %>
-            <%= f.input :content %>
-            <%= f.submit  "Add Comment", class: "btn btn-primary" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 offset-sm-3">
-      <div class="comment-item-list">
-        <h2>Comments</h2>
-        <% @post.comments.each do |comment| %>
-          <div class="comment-item">
-            <hr>
-            <p><%= comment.content %></p>
-            <small>posted by:<%= comment.post.user.email %></small>
-            <% if policy(comment).update? %>
-              <%= link_to "Edit", edit_post_comment_path(@post, comment) %>
+    <div class="col-xs-12 col-sm-7">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <div class="post-item">
+            <small class="post-info-email">posted by:<%= @post.user.email %></small>
+            <h2><%= @post.title.capitalize %></h2>
+            <% @post.category_list.each do |category| %>
+              <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
             <% end %>
-            <% if policy(comment).destroy? %>
-              <%= link_to "Delete", comment_path(comment), method: :delete, data: {confirm: "Are you sure?"}, class: "btn btn-danger"  %>
+            <p><%= @post.content %></p>
+            <%= link_to posts_path, class: "post-info-comment-count" do %>
+              <i class="fas fa-arrow-circle-left"></i>
+            <% end %>
+            <% if policy(@post).update? %>
+              <%= link_to edit_post_path(@post), class: "post-info-comment-count" do %>
+                <i class="fas fa-edit"></i>
+              <% end %>
+            <% end %>
+            <% if policy(@post).destroy? %>
+              <%= link_to post_path(@post), method: :delete, data: { confirm: "Are you sure?"}, class: "post-info-comment-count" do %>
+                <i class="fas fa-trash-alt"></i>
+              <% end %>
             <% end %>
           </div>
-        <% end %>
+        </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 offset-sm-3">
-      <div class="post-item">
-        <h2>Related post</h2>
-      </div>
-    </div>
-  </div>
-  <% @related_posts.each do |post| %>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 offset-sm-3">
-        <div class="post-item">
-          <small>posted by:<%= post.user.email %></small>
-          <h3><%= link_to post.title, post_path(post) %></h3>
-          <% post.category_list.each do |category| %>
-            <p>
-              <%= link_to category, categorized_path(category: category)  %>
-            </p>
-          <% end %>
-          <p><%= post.content %></p>
+      <% if user_signed_in? %>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12">
+            <div class="post-item-form">
+              <%= simple_form_for [ @post, @comment ] do |f| %>
+                <%= f.input :content %>
+                <%= f.submit  "Add Comment", class: "btn btn-flat" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <div class="comment-item-list">
+            <h2>Comments</h2>
+            <% @post.comments.each do |comment| %>
+              <div class="comment-item">
+                <hr>
+                <small class="post-info-email">commented by:<%= comment.post.user.email %></small>
+                <p><%= comment.content %></p>
+                <% if policy(comment).update? %>
+                  <%= link_to edit_post_path(@post), class: "post-info-comment-count" do %>
+                    <i class="fas fa-edit"></i>
+                  <% end %>
+                <% end %>
+                <% if policy(comment).destroy? %>
+                  <%= link_to post_path(@post), method: :delete, data: { confirm: "Are you sure?"}, class: "post-info-comment-count" do %>
+                    <i class="fas fa-trash-alt"></i>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
-  <% end %>
+    <div class="col-xs-12 col-sm-5">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12">
+          <div class="post-item">
+            <h2>Related post</h2>
+          </div>
+        </div>
+      </div>
+      <% @related_posts.each do |post| %>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12">
+            <div class="post-item">
+              <small class="post-info-email">commented by:<%= post.user.email %></small>
+              <h3><%= link_to post.title.capitalize, post_path(post), class: "post-info-title" %></h3>
+              <% post.category_list.each do |category| %>
+                <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
+              <% end %>
+              <p><%= post.content %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
