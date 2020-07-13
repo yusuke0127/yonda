@@ -29,7 +29,7 @@ class PostPolicy < ApplicationPolicy
     true
   end
 
-  def search?
+  def search_post?
     true
   end
 end

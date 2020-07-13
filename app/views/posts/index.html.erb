@@ -1,29 +1,29 @@
 <div class="container">
-  <%= form_tag search_post_path, method: :get do %>
-    <%= text_field_tag :query,
+  <%#= form_tag search_post_path, method: :get do %>
+    <%#= text_field_tag :query,
     params[:query],
     class: "form-control",
     placeholder: "Find a thread"
   %>
-    <%= submit_tag "Search", class: "btn btn-primary" %>
-  <% end %>
-  <% if user_signed_in? %>
-    <%= render 'form', post: @post %>
-  <% end %>
-  <% @posts.each do |post| %>
-    <div class="row">
-      <div class="col-xs-12 col-sm-6 offset-sm-3">
-        <div class="post-item">
-          <small>posted by:<%= post.user.email %></small>
-          <h3><%= link_to post.title, post_path(post) %></h3>
-          <% post.category_list.each do |category| %>
-            <p>
-              <%= link_to category, categorized_path(category: category)  %>
-            </p>
-          <% end %>
-          <p><%= post.content %></p>
+    <%#= submit_tag "Search", class: "btn btn-primary" %>
+    <%# end %>
+    <% if user_signed_in? %>
+      <%= render 'form', post: @post %>
+    <% end %>
+    <% @posts.each do |post| %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 offset-sm-3">
+          <div class="post-item">
+            <small>posted by:<%= post.user.email %></small>
+            <h3><%= link_to post.title, post_path(post) %></h3>
+            <% post.category_list.each do |category| %>
+              <p>
+                <%= link_to category, categorized_path(category: category)  %>
+              </p>
+            <% end %>
+            <p><%= post.content %></p>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>

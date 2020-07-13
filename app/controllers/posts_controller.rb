@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show, :search]
+  skip_before_action :authenticate_user!, only: [:index, :show, :search_post]
 
   def index
     @posts = policy_scope(Post).order(created_at: :desc)
@@ -61,13 +61,13 @@ class PostsController < ApplicationController
     end
   end
 
-  def search
+  def search_post
     if params[:query].present?
       @posts = Post.search_by_title_and_content(params[:query])
-      authorize @posts
     else
       @posts = policy_scope(Post).order(created_at: :desc)
     end
+    authorize @posts
   end
 
   private
