@@ -55,6 +55,7 @@ class PostsController < ApplicationController
   def categorized
     if params[:category].present?
       @posts = Post.tagged_with(params[:category])
+      @category = params[:category]
       authorize @posts
     else
       redirect_to posts_path
