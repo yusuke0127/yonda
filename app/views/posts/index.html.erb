@@ -22,6 +22,9 @@
                 <% end %>
                 <br>
                 <p><%= post.content %></p>
+                <%= link_to post_path(post), class: "post-info-comment-count" do %>
+                  <i class="far fa-comment-dots"></i> <%= post.comments.count %>
+                <% end %>
               </div>
             </div>
           </div>
