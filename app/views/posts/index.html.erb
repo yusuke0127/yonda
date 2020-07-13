@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-5">
   <%#= form_tag search_post_path, method: :get do %>
     <%#= text_field_tag :query,
     params[:query],
@@ -7,23 +7,25 @@
   %>
     <%#= submit_tag "Search", class: "btn btn-primary" %>
     <%# end %>
-    <% if user_signed_in? %>
-      <%= render 'form', post: @post %>
-    <% end %>
-    <% @posts.each do |post| %>
-      <div class="row">
-        <div class="col-xs-12 col-sm-6 offset-sm-3">
-          <div class="post-item">
-            <small>posted by:<%= post.user.email %></small>
-            <h3><%= link_to post.title, post_path(post) %></h3>
-            <% post.category_list.each do |category| %>
-              <p>
-                <%= link_to category, categorized_path(category: category)  %>
-              </p>
-            <% end %>
-            <p><%= post.content %></p>
+    <%# if user_signed_in? %>
+    <div class="row">
+      <%# end %>
+      <div class="col-sm-7">
+        <% @posts.each do |post| %>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="post-item">
+                <small>posted by:<%= post.user.email %></small>
+                <h3><%= link_to post.title.capitalize, post_path(post) %></h3>
+                <% post.category_list.each do |category| %>
+                  <%= link_to category, categorized_path(category: category)  %>
+                <% end %>
+                <p><%= post.content %></p>
+              </div>
+            </div>
           </div>
-        </div>
+        <% end %>
       </div>
-    <% end %>
+      <%= render 'form', post: @post %>
+    </div>
   </div>
