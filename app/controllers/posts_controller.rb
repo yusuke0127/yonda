@@ -20,14 +20,16 @@ class PostsController < ApplicationController
   end
 
   def create
+    @posts = policy_scope(Post)
     @post = Post.new(post_params)
     @post.user = current_user
     authorize @post
     if @post.save
       redirect_to post_path(@post)
     else
-      render :new
+      render :index
     end
+
   end
 
   def edit

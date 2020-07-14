@@ -14,13 +14,14 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @post = Post.find(params[:post_id])
+    @related_posts = @post.find_related_categories
     @comment.post = @post
     @comment.user = current_user
     authorize @comment
     if @comment.save
       redirect_to post_path(@post)
     else
-      render :new
+      render 'posts/show'
     end
   end
 
