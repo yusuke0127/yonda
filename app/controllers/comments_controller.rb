@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
-    @comments = policy_scope(Comments)
+    @comments = policy_scope(Comment)
   end
 
   def new

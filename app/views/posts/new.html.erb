@@ -1,11 +1,11 @@
 <!--  -->
 <% if user_signed_in? %>
   <div class="row mt-5">
-    <%= link_to posts_path, class: "post-info-comment-count" do %>
-      <i class="fas fa-arrow-circle-left"></i>
-    <% end %>
     <div class="col-xs-12 col-sm-6 offset-sm-3">
       <div class="post-item-form">
+        <%= link_to posts_path, class: "post-info-comment-count" do %>
+          <i class="fas fa-arrow-circle-left"></i>
+        <% end %>
         <div class="form-title">
           <h3>Make a Thread</h3>
         </div>
