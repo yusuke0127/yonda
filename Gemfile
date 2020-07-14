@@ -33,8 +33,7 @@ gem 'devise'
 gem 'faker'
 gem 'pundit'
 gem 'pg_search', '~> 2.3.0'
-
-
+gem 'turbolinks_render'
 
 gem 'autoprefixer-rails'
 gem 'font-awesome-sass'

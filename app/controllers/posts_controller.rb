@@ -9,7 +9,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @related_posts = @post.find_related_categories
-    @comments = @post.comments
+    @comments = @post.comments.reverse
     @comment = Comment.new
     authorize @post
   end
