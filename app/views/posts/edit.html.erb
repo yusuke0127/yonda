@@ -5,7 +5,9 @@
     <% end %>
     <div class="col-xs-12 col-sm-6 offset-sm-3">
       <div class="post-item-form">
-        <h3>Edit your post</h3>
+        <div class="form-title">
+          <h3>Edit your post</h3>
+        </div>
         <% collection = [ "Sports", "News", "Music" ]%>
         <%= simple_form_for(@post) do |f| %>
           <%= f.input :title %>
