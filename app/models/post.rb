@@ -1,4 +1,5 @@
 class Post < ApplicationRecord
+  acts_as_votable
   include PgSearch::Model
   pg_search_scope :search_by_title_and_content,
     against: [ :title, :content ],
