@@ -68,6 +68,7 @@ class PostsController < ApplicationController
     else
       @posts = policy_scope(Post).order(created_at: :desc)
     end
+    @query = params[:query]
     authorize @posts
   end
 
