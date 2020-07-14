@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show, :search_post]
+  skip_before_action :authenticate_user!, only: [:index, :show, :categorized, :search_post]
 
   def index
     @posts = policy_scope(Post).order(created_at: :desc)
