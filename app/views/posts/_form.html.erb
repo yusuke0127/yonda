@@ -5,7 +5,7 @@
       <h3>Make a Thread</h3>
     </div>
     <% collection = [ "Sports", "News", "Music" ]%>
-    <%= simple_form_for(@post, remote: true) do |f| %>
+    <%= simple_form_for(@post) do |f| %>
       <%= f.input :title, label: false, placeholder: "Title" %>
       <%= f.input :content, label: false, placeholder: "Content" %>
       <%#= f.input :category_list, label: "Add tags", hint: "Add your tags, separated by commas" %>
