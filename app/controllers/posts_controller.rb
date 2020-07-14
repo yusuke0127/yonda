@@ -20,7 +20,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @posts = policy_scope(Post)
+    @posts = policy_scope(Post).order(created_at: :desc)
     @post = Post.new(post_params)
     @post.user = current_user
     authorize @post
@@ -29,7 +29,6 @@ class PostsController < ApplicationController
     else
       render :index
     end
-
   end
 
   def edit

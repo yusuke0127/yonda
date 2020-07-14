@@ -24,7 +24,7 @@
                 <% end %>
               <% end %>
               <% if policy(@post).destroy? %>
-                <%= link_to post_path(@post), method: :delete, data: { confirm: "Are you sure?"}, class: "post-info-comment-count" do %>
+                <%= link_to post_path(@post), method: :delete, data: { confirm: "Are you sure?"}, remote: true, class: "post-info-comment-count" do %>
                   <i class="fas fa-trash-alt"></i>
                 <% end %>
               <% end %>
@@ -60,7 +60,7 @@
                     <% end %>
                   <% end %>
                   <% if policy(comment).destroy? %>
-                    <%= link_to comment_path(comment), method: :delete, data: { confirm: "Are you sure?"}, class: "post-info-comment-count" do %>
+                    <%= link_to comment, method: :delete, data: { confirm: "Are you sure?"}, remote: true, class: "post-info-comment-count" do %>
                       <i class="fas fa-trash-alt"></i>
                     <% end %>
                   <% end %>
