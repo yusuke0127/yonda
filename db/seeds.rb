@@ -12,6 +12,10 @@ User.destroy_all
 Comment.destroy_all
 Post.destroy_all
 
+
+categories = %w[Advice Animals Art DIY Electronics Entertainment Fashion Food Funny Gaming Health Memes Music News Outdoors Photography Pics&GIFs Relationships Science Sports TV Tech Travel Video Games Videos Writing]
+# Advice Animals Art DIY Electronics Entertainment Fashion Food Funny Gaming Health Memes Music News Outdoors Photography Pics & GIFs Relationships Science Sports TV Tech Travel Video Games Videos Writing
+
 @yusuke = User.create!(
   email: "yusuke@gmail.com",
   password: "123456"
@@ -19,10 +23,11 @@ Post.destroy_all
 
 puts "Done creating yusuke"
 
-5.times do
+100.times do
   post = Post.new(
     title: Faker::Book.title,
-    content: Faker::Quote.famous_last_words
+    content: Faker::Quote.famous_last_words,
+    category_list: categories.sample
   )
 
   post.user = @yusuke
