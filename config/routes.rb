@@ -5,6 +5,11 @@ Rails.application.routes.draw do
     resources :comments, only: [:index, :new, :create, :edit, :update]
   end
   resources :comments, only: [ :destroy ]
+  resources :posts do
+    member do
+      put "vote" => "posts#vote"
+    end
+  end
   get '/categorized', to: "posts#categorized", as: :categorized
   get '/search_post', to: "posts#search_post", as: :search_post
 end

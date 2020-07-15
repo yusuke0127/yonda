@@ -73,6 +73,16 @@ class PostsController < ApplicationController
     authorize @posts
   end
 
+  def vote
+    @post = Post.find(params[:id])
+    if params[:format] == 'upvote'
+      @post.liked_by current_user
+    elsif params[:format] == 'downvote'
+      @post.unliked_by current_user
+    end
+    authorize @post
+  end
+
   private
 
   def post_params

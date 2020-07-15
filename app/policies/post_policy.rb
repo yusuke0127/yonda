@@ -32,4 +32,8 @@ class PostPolicy < ApplicationPolicy
   def search_post?
     true
   end
+
+  def vote?
+    true
+  end
 end
