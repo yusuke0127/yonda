@@ -18,6 +18,8 @@
               <p><%= @post.content %></p>
             </div>
             <div class="post-item-bottom">
+              <%= link_to "upvote", vote_post_path(@post, 'upvote'), method: :put %>: <span><%= @post.get_upvotes.size %></span>
+              <%= link_to "downvote", vote_post_path(@post, 'downvote'), method: :put, remote: :true %>:  <span><%= @post.get_downvotes.size %></span>
               <% if policy(@post).update? %>
                 <%= link_to edit_post_path(@post), class: "post-info-comment-count" do %>
                   <i class="fas fa-edit"></i>

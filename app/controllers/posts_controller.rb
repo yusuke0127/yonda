@@ -75,10 +75,13 @@ class PostsController < ApplicationController
 
   def vote
     @post = Post.find(params[:id])
+    @related_posts = @post.find_related_categories
+    @comments = @post.comments.reverse
+    @comment = Comment.new
     if params[:format] == 'upvote'
-      @post.liked_by current_user
+      @post.upvote_by current_user
     elsif params[:format] == 'downvote'
-      @post.unliked_by current_user
+      @post.downvote_by current_user
     end
     authorize @post
   end
