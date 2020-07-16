@@ -17,19 +17,27 @@
             <div class="post-item-content-show">
               <p><%= @post.content %></p>
             </div>
-            <div class="post-item-bottom" data-controller="counter">
-              <%= link_to "upvote", vote_post_path(@post, 'upvote'), method: :put, data: { action: "click->counter#refresh" }, remote: :true %>: <span data-target="counter.count"><%= @post.get_upvotes.size %></span>
-              <%= link_to "downvote", vote_post_path(@post, 'downvote'), method: :put, remote: :true %>:  <span><%= @post.get_downvotes.size %></span>
-              <% if policy(@post).update? %>
-                <%= link_to edit_post_path(@post), class: "post-info-comment-count" do %>
-                  <i class="fas fa-edit"></i>
+            <div class="post-item-bottom-show" data-controller="counter">
+              <div>
+                <%= link_to vote_post_path(@post, 'upvote'), method: :put, data: { target: "counter.id", action: "click->counter#refresh" }, remote: :true, class: "post-info-comment-count" do %>
+                  <i class="far fa-thumbs-up"></i><span data-target="counter.count"><%= @post.get_upvotes.size %></span>
+                <% end -%>
+                <%= link_to vote_post_path(@post, 'downvote'), method: :put, class: "post-info-comment-count" do %>
+                  <i class="far fa-thumbs-down"></i> <span><%= @post.get_downvotes.size %></span>
+                <% end -%>
+              </div>
+              <div>
+                <% if policy(@post).update? %>
+                  <%= link_to edit_post_path(@post), class: "post-info-comment-count" do %>
+                    <i class="fas fa-edit"></i>
+                  <% end %>
                 <% end %>
-              <% end %>
-              <% if policy(@post).destroy? %>
-                <%= link_to post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, remote: true, class: "post-info-comment-count" do %>
-                  <i class="fas fa-trash-alt"></i>
+                <% if policy(@post).destroy? %>
+                  <%= link_to post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, remote: true, class: "post-info-comment-count" do %>
+                    <i class="fas fa-trash-alt"></i>
+                  <% end %>
                 <% end %>
-              <% end %>
+              </div>
             </div>
           </div>
         </div>

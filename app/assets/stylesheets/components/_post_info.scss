@@ -49,6 +49,11 @@
   display: flex;
   justify-content: flex-end
 }
+.post-item-bottom-show {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .post-info-comment-count-bottom {
   text-decoration: none;
   color: #4A4A4A;

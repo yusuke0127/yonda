@@ -88,6 +88,7 @@ class PostsController < ApplicationController
       @post.downvote_by current_user
     end
     authorize @post
+    redirect_to post_path(@post)
   end
 
   private
