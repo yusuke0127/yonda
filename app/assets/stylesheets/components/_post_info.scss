@@ -20,6 +20,17 @@
     color: #4A4A4A;
     opacity: 0.7;
 }
+.post-info-comment-count-selected {
+  text-decoration: none;
+    color: #4A4A4A;
+    opacity: 0.7;
+    color: #e89268;
+}
+.post-info-comment-count-selected:hover {
+  opacity: 0.9;
+  text-decoration: none;
+  color: #e89268;
+}
 
 .post-info-comment-count:hover {
   opacity: 0.9;
