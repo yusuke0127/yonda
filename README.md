@@ -1,6 +1,6 @@
 # Yonda
 
-A reddit MVP
+A reddit MVP where you can log in as a user, create and upvote/downvote thread and comment on threads.
 
 ## Getting Started
 
