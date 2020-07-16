@@ -12,6 +12,10 @@ class PostsController < ApplicationController
     @comments = @post.comments.reverse
     @comment = Comment.new
     authorize @post
+    respond_to do |format|
+      format.html
+      format.json { render json: { post: @post } }
+    end
   end
 
   def new
