@@ -38,6 +38,25 @@
   text-decoration: none;
 }
 
+.post-info-comment-count-index {
+  text-decoration: none;
+    color: #4A4A4A;
+    opacity: 0.7;
+    padding: 4px;
+}
+
+.post-info-comment-count-index:hover {
+  opacity: 0.9;
+  color: #4A4A4A;
+  text-decoration: none;
+  padding: 4px;
+}
+
+.post-info-comment-count {
+  text-decoration: none;
+    color: #4A4A4A;
+    opacity: 0.7;
+}
 .post-item-content {
   padding: 8px;
   // box-shadow: 0 2px 2px rgba(0,0,0,0.08);
