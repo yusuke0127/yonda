@@ -15,7 +15,12 @@ And you can run
 ```
 rails db:seed 
 ```
-to fill the database with fake threads
+to fill the database with fake threads then run
+
+```
+rails s
+```
+to run it in your local server
 
 ## Deployment
 
