@@ -31,7 +31,3 @@ You can deploy your own web application easily using heroku.
 * [Ruby on Rails](https://rubyonrails.org/) - The web framework used
 * [Yarn](https://yarnpkg.com/) - Dependency Management
 * [Heroku](https://www.heroku.com/what) - The cloud service used
-
-## Acknowledgments
-
-* Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
