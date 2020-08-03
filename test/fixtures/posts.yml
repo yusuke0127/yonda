@@ -1,0 +1,8 @@
+post1:
+  title: "Title"
+  content: "test content"
+  user: :yusuke
+post2:
+  title: "Roadstr"
+  content: "Rent a vintage car"
+  user: :yusuke
