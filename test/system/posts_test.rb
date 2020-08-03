@@ -21,8 +21,6 @@ class PostsTest < ApplicationSystemTestCase
     click_on 'Confirm'
     # save_and_open_screenshot
 
-    # Should be redirected to Home with new product
-    # assert_equal post_path(:id), page.current_path
     assert_text "Change your life: Learn to code"
   end
 end
