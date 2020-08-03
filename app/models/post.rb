@@ -12,6 +12,6 @@ class Post < ApplicationRecord
 
   acts_as_taggable_on :categories
 
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness: true
   validates :content, presence: true
 end

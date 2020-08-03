@@ -29,5 +29,4 @@ RSpec.describe User, type: :model do
 
     expect(user.errors[:email]).to include('has already been taken')
   end
-  it "returns a user's full name as a string"
 end
