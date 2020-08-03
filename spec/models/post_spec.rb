@@ -28,6 +28,15 @@ RSpec.describe Post, type: :model do
     expect(post.errors[:title]).to include("can't be blank")
   end
 
+  it "is invalid without a user" do
+    post = Post.new(
+      title: "test",
+      content: "Test content"
+    )
+    post.valid?
+    expect(post.errors[:user]).to include("must exist")
+  end
+
   it "does not allow duplicate project names per user" do
     user = User.create(
       email: "tester@gmail.com",
