@@ -37,8 +37,7 @@ RSpec.describe Post, type: :model do
   end
 
   it "does not allow duplicate project names per user" do
-
-    post = @user.posts.create(
+    @user.posts.create(
       title: "Test",
       content: "Test content"
     )
