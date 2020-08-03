@@ -1,21 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-
-  it "is valid with content" do
-    user = User.create(
+  before do
+    @user = User.create(
       email: "tester@gmail.com",
       password: "123456"
     )
 
-    post = user.posts.create(
+    @post = @user.posts.create(
       title: "test",
       content: "Test content"
     )
+  end
 
-    comment = post.comments.new(
+  it "is valid with content" do
+
+    comment = @post.comments.new(
       content: "test content",
-      user: user
+      user: @user
     )
     comment.valid?
 
@@ -23,16 +25,7 @@ RSpec.describe Comment, type: :model do
   end
 
   it "is invalid without a user" do
-    user = User.create(
-      email: "tester@gmail.com",
-      password: "123456"
-    )
-    post = user.posts.create(
-      title: "test",
-      content: "Test content"
-    )
-
-    comment = post.comments.new(
+    comment = @post.comments.new(
       content: "test content",
       user: nil
     )
