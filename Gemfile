@@ -42,6 +42,7 @@ gem 'simple_form'
 group :development, :test do  gem 'pry-byebug'
   gem 'pry-rails'
   gem 'dotenv-rails'
+  gem "factory_bot_rails"
   gem 'rspec-rails'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
