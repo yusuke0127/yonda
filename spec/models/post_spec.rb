@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-
   before do
     @user = User.create(
       email: "tester@gmail.com",
