@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       put "vote" => "posts#vote"
     end
   end
+  # get '/home', to: "pages#home"
   get '/categorized', to: "posts#categorized", as: :categorized
   get '/search_post', to: "posts#search_post", as: :search_post
 end
