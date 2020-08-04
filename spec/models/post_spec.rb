@@ -49,4 +49,9 @@ RSpec.describe Post, type: :model do
     new_project.valid?
     expect(new_project.errors[:title]).to include("has already been taken")
   end
+
+  it "can have many comments" do
+    post = FactoryBot.create(:post, :with_comments)
+    expect(post.comments.length).to eq 5
+  end
 end
