@@ -30,6 +30,22 @@ RSpec.describe PostsController, type: :controller do
     end
   end
 
+  describe "#new" do
+    before do
+      @user = FactoryBot.build(:user)
+      @post = FactoryBot.build(:post, user: @user)
+    end
+    it "returns a 302 response" do
+      get :new
+      expect(response).to have_http_status "302"
+    end
+
+    it "redirects to post#new page" do
+      get :new
+      expect(response).to redirect_to "/users/sign_in"
+    end
+  end
+
   describe "#create" do
     context "as an authenticated user" do
       before do
@@ -56,6 +72,24 @@ RSpec.describe PostsController, type: :controller do
         post :create, params: { post: post_params }
         expect(response).to redirect_to "/users/sign_in"
       end
+    end
+  end
+
+  describe "#edit" do
+    before do
+      @user = FactoryBot.create(:user)
+      @post = FactoryBot.create(:post, user: @user)
+    end
+    it "returns a 302 response" do
+      post_params = FactoryBot.attributes_for(:post)
+      get :edit, params: { id: @post.id, post: post_params }
+      expect(response).to have_http_status "302"
+    end
+
+    it "redirects to post#new page" do
+      post_params = FactoryBot.attributes_for(:post)
+      get :edit, params: { id: @post.id, post: post_params }
+      expect(response).to redirect_to "/users/sign_in"
     end
   end
 
