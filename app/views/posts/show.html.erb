@@ -9,7 +9,7 @@
             <% end %>
             <div>
               <small class="post-info-email">posted by:<%= @post.user.email %></small>
-              <h2><%= @post.title.capitalize %></h2>
+              <h2><%= @post.title %></h2>
               <% @post.category_list.each do |category| %>
                 <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
               <% end %>
