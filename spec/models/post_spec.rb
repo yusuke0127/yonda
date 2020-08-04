@@ -18,19 +18,17 @@ RSpec.describe Post, type: :model do
   end
 
   it "is invalid without a title" do
-    post = @user.posts.create(
-      title: nil,
-      content: "Test content"
-    )
+    # post = @user.posts.create(
+    #   title: nil,
+    #   content: "Test content"
+    # )
+    post = FactoryBot.build(:post, title: nil)
     post.valid?
     expect(post.errors[:title]).to include("can't be blank")
   end
 
   it "is invalid without a user" do
-    post = Post.new(
-      title: "test",
-      content: "Test content"
-    )
+    post = FactoryBot.build(:post, user: nil)
     post.valid?
     expect(post.errors[:user]).to include("must exist")
   end

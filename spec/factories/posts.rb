@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :post do
-    sequence(:title) { |n| "Post #{n}" }
+    sequence(:title) { |n| "Test post #{n}" }
     content { "A test post." }
     association :user
 
