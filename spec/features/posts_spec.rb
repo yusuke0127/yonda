@@ -38,6 +38,30 @@ RSpec.feature "Posts", type: :feature do
     end.to change(post.comments, :count).by(1)
   end
 
+  scenario "user or guest searches a post" do
+    visit root_path
+    fill_in "Find a thread", with: "test"
+
+    click_button "Search"
+    expect(page).to have_content "test"
+  end
+
+  scenario "a guest creates a new post" do
+    visit root_path
+
+    fill_in "Title", with: "Test Post"
+    fill_in "Content", with: "Trying out Capybara"
+    click_button "Confirm"
+    expect(current_path).to eq(new_user_session_path)
+  end
+
+  scenario "a guest adds a new comment" do
+    user = FactoryBot.create(:user)
+    post = FactoryBot.create(:post, user: user)
+    visit(post_path(post))
+
+    expect(page).to have_content "Log in"
+  end
   # scenario "user likes a post" do
   #   user = FactoryBot.create(:user)
   #   post = FactoryBot.create(:post, user: user)
