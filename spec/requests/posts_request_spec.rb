@@ -39,9 +39,9 @@ RSpec.describe PostsController, type: :controller do
       it "adds a post" do
         post_params = FactoryBot.attributes_for(:post)
         sign_in @user
-        expect {
+        expect do
           post :create, params: { post: post_params }
-        }.to change(@user.posts, :count).by(1)
+        end.to change(@user.posts, :count).by(1)
       end
     end
     context "as a guest" do
@@ -92,6 +92,77 @@ RSpec.describe PostsController, type: :controller do
         expect do
           patch :update, params: { id: @post.id, post: post_params }
         end.to raise_error Pundit::NotAuthorizedError
+      end
+    end
+
+    context "as a guest" do
+      before do
+        @post = FactoryBot.create(:post)
+      end
+
+      it "returns a 302 response" do
+        post_params = FactoryBot.attributes_for(:post)
+        patch :update, params: { id: @post.id, post: post_params }
+        expect(response).to have_http_status "302"
+      end
+
+      it "redirects to sign in page" do
+        post_params = FactoryBot.attributes_for(:post)
+        patch :update, params: { id: @post.id, post: post_params }
+        expect(response).to redirect_to "/users/sign_in"
+      end
+    end
+  end
+
+  describe "#destroy" do
+    context "as an authorized user" do
+      before do
+        @user = FactoryBot.create(:user)
+        @post = FactoryBot.create(:post, user: @user)
+      end
+
+      it "deletes the post" do
+        sign_in @user
+        expect do
+          delete :destroy, params: { id: @post.id }
+        end.to change(@user.posts, :count).by(-1)
+      end
+    end
+
+    context "as an unauthorized user" do
+      before do
+        @user = FactoryBot.create(:user)
+        other_user = FactoryBot.create(:user)
+        @post = FactoryBot.create(:post, user: other_user)
+      end
+
+      it "does not delete the post" do
+        sign_in @user
+        expect do
+          delete :destroy, params: { id: @post.id }
+        end.to raise_error Pundit::NotAuthorizedError
+      end
+    end
+
+    context "as a guest" do
+      before do
+        @post = FactoryBot.create(:post)
+      end
+
+      it "returns a 302 response" do
+        delete :destroy, params: { id: @post.id }
+        expect(response).to have_http_status "302"
+      end
+
+      it "redirects to sign in page" do
+        delete :destroy, params: { id: @post.id }
+        expect(response).to redirect_to "/users/sign_in"
+      end
+
+      it "does not delete the post" do
+        expect do
+          delete :destroy, params: { id: @post.id }
+        end.to_not change(Post, :count)
       end
     end
   end
