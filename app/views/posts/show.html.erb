@@ -19,16 +19,16 @@
             </div>
             <div class="post-item-bottom-show" data-controller="counter">
               <div>
-                <%= link_to vote_post_path(@post, 'upvote'), method: :put, data: { target: "counter.id", action: "click->counter#refresh" }, remote: :true, class: "post-info-comment-count#{current_user.nil? ? "" : ((current_user.liked? @post) ? "-selected" : "")}" do %>
+                <%= link_to vote_post_path(@post, 'upvote'), method: :put, data: { target: "counter.id", action: "click->counter#refresh" }, remote: :true, class: "post-info-comment-count#{current_user.nil? ? "" : ((current_user.liked? @post) ? "-selected" : "")}", id: "upvote" do %>
                   <i class="far fa-thumbs-up"></i><span data-target="counter.count"><%= @post.get_upvotes.size %></span>
                 <% end -%>
-                <%= link_to vote_post_path(@post, 'downvote'), method: :put, class: "post-info-comment-count#{current_user.nil? ? "" : ((current_user.disliked? @post) ? "-selected" : "")}" do %>
+                <%= link_to vote_post_path(@post, 'downvote'), method: :put, class: "post-info-comment-count#{current_user.nil? ? "" : ((current_user.disliked? @post) ? "-selected" : "")}",id: "downvote" do %>
                   <i class="far fa-thumbs-down"></i> <span><%= @post.get_downvotes.size %></span>
                 <% end -%>
               </div>
               <div>
                 <% if policy(@post).update? %>
-                  <%= link_to edit_post_path(@post), class: "post-info-comment-count" do %>
+                  <%= link_to edit_post_path(@post), class: "post-info-comment-count", id: "edit" do %>
                     <i class="fas fa-edit"></i>
                   <% end %>
                 <% end %>
