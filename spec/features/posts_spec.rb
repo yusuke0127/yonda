@@ -3,12 +3,9 @@ require 'rails_helper'
 RSpec.feature "Posts", type: :feature do
   scenario "user creates a new post" do
     user = FactoryBot.create(:user)
+    login_as user, scope: :user
 
     visit root_path
-    click_link "Login"
-    fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
-    click_button "Log in"
 
     expect do
       fill_in "Title", with: "Test Post"
@@ -23,11 +20,7 @@ RSpec.feature "Posts", type: :feature do
     user = FactoryBot.create(:user)
     post = FactoryBot.create(:post, user: user)
 
-    visit root_path
-    click_link "Login"
-    fill_in "Email", with: user.email
-    fill_in "Password", with: user.password
-    click_button "Log in"
+    login_as user, scope: :user
 
     visit(post_path(post))
 

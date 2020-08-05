@@ -5,6 +5,7 @@ require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'support/login_support'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -53,7 +54,9 @@ RSpec.configure do |config|
   #       # ...
   #     end
   #
+
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include LoginSupport
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
@@ -62,4 +65,9 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Use Devise helpers in tests
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  # config.include RequestSpecHelper, type: :request
+  config.include Warden::Test::Helpers
 end
