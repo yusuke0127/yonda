@@ -1,8 +1,10 @@
 require 'rails_helper'
 
 RSpec.feature "Posts", type: :feature do
+  let(:user) { FactoryBot.create(:user) }
+  let(:post) { FactoryBot.create(:post, user: user) }
   scenario "user creates a new post" do
-    user = FactoryBot.create(:user)
+    # user = FactoryBot.create(:user)
     login_as user, scope: :user
 
     visit root_path
@@ -17,8 +19,8 @@ RSpec.feature "Posts", type: :feature do
   end
 
   scenario "user adds a new comment" do
-    user = FactoryBot.create(:user)
-    post = FactoryBot.create(:post, user: user)
+    # user = FactoryBot.create(:user)
+    # post = FactoryBot.create(:post, user: user)
 
     login_as user, scope: :user
 
@@ -49,8 +51,8 @@ RSpec.feature "Posts", type: :feature do
   end
 
   scenario "a guest adds a new comment" do
-    user = FactoryBot.create(:user)
-    post = FactoryBot.create(:post, user: user)
+    # user = FactoryBot.create(:user)
+    # post = FactoryBot.create(:post, user: user)
     visit(post_path(post))
 
     expect(page).to have_content "Log in"
