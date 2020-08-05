@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.feature "Posts", type: :feature do
   let(:user) { FactoryBot.create(:user) }
   let(:post) { FactoryBot.create(:post, user: user) }
+
   scenario "user creates a new post" do
     # user = FactoryBot.create(:user)
     login_as user, scope: :user
@@ -10,9 +11,7 @@ RSpec.feature "Posts", type: :feature do
     visit root_path
 
     expect do
-      fill_in "Title", with: "Test Post"
-      fill_in "Content", with: "Trying out Capybara"
-      click_button "Confirm"
+      fill_in_new_thread_form
       expect(page).to have_content "Test Post"
       expect(page).to have_content "#{user.email}"
     end.to change(user.posts, :count).by(1)
@@ -36,8 +35,7 @@ RSpec.feature "Posts", type: :feature do
     visit(post_path(post))
 
     expect do
-      fill_in "What's your thoughts?", with: "Test Comment"
-      click_button "Comment"
+      fill_in_comment_form
       expect(page).to have_content "Test Comment"
     end.to change(post.comments, :count).by(1)
   end
@@ -53,9 +51,8 @@ RSpec.feature "Posts", type: :feature do
   scenario "a guest creates a new post" do
     visit root_path
 
-    fill_in "Title", with: "Test Post"
-    fill_in "Content", with: "Trying out Capybara"
-    click_button "Confirm"
+    fill_in_new_thread_form
+
     expect(current_path).to eq(new_user_session_path)
   end
 
@@ -83,5 +80,16 @@ RSpec.feature "Posts", type: :feature do
     expect do
       click_link "downvote"
     end.to change(post.get_downvotes, :size).by(1)
+  end
+
+  def fill_in_new_thread_form
+    fill_in "Title", with: "Test Post"
+    fill_in "Content", with: "Trying out Capybara"
+    click_button "Confirm"
+  end
+
+  def fill_in_comment_form
+    fill_in "What's your thoughts?", with: "Test Comment"
+    click_button "Comment"
   end
 end
