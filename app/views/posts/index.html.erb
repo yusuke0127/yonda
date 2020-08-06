@@ -52,7 +52,7 @@
             <ul>
               <% ActsAsTaggableOn::Tag.most_used(10).each do |category| %>
                 <li>
-                  <%= link_to category.name, categorized_path(category: category) %>
+                  <%= link_to category.name, categorized_path(category: category), class: "category-link" %>
                 </li>
               <% end %>
             </ul>
