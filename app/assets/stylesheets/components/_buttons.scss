@@ -24,6 +24,23 @@
   color: white;
 }
 
+.btn-flat-side-bar {
+  color: white;
+  padding: 8px 24px;
+  border-radius: 4px;
+  background: #68c2e8;
+  transition: background 0.3s ease;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+
+.btn-flat-side-bar:hover {
+  background: #68b3e8;
+  color: white;
+    text-decoration: none;
+
+}
 
 .btn-ghost {
   color: #4A4A4A;
