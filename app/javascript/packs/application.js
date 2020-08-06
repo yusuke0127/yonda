@@ -28,13 +28,13 @@ import "bootstrap";
 // Internal imports, e.g:
 // import { initSelect2 } from '../components/init_select2';
 import { initSelect2 } from '../components/init_select2';
-import { selectTab } from '../components/select_tab';
+// import { selectTab } from '../components/select_tab';
 
 
 document.addEventListener('turbolinks:load', () => {
   // Call your functions here, e.g:
   initSelect2();
-  selectTab();
+  // selectTab(event);
 });
 
 import "controllers"

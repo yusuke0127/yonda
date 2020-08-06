@@ -3,6 +3,9 @@ class PostsController < ApplicationController
 
   def index
     @posts = policy_scope(Post).order(created_at: :desc)
+    @hottest_posts = policy_scope(Post).order(created_at: :desc)
+    @popular_posts = policy_scope(Post).order(created_at: :desc)
+
     @post = Post.new
   end
 

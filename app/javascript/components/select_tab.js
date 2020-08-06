@@ -1,23 +1,14 @@
-const selectTab = () => {
-  const tabLinks = document.querySelectorAll(".tab-underlined");
-  const tabContents = document.querySelectorAll(".post-item");
-  if(!tabLinks) && (!tabContent) {
-    return
-  }
-  tabContents.forEach((tabContent) => {
-    tabContent.style.display = "none"
-  })
-  tabLinks.forEach((tabLink) => {
-    tabLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      console.log(tabLink);
-      console.log(e.currentTarget);
-      tabLink.classList.toggle("active");
-    });
-  })
-}
+// const selectTab = (event) => {
+//   const tabLinks = document.querySelectorAll(".tab-underlined");
+//   const tabContents = document.querySelectorAll(".post-item");
+//   const activeLink = document.querySelector(".tabs-underlined .active")
+//   if(!tabLinks){
+//     return
+//   }
+//  console.log('working!')
+// }
 
-export { selectTab }
+// export { selectTab }
 
 
 // function openCity(evt, cityName) {
