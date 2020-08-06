@@ -11,6 +11,17 @@
     <div class="row">
       <%# end %>
       <div class="col-sm-8">
+        <ul class="list-inline tabs-underlined">
+          <li>
+            <a href="#" class="tab-underlined active">Latest</a>
+          </li>
+          <li>
+            <a href="#" class="tab-underlined">Hottest</a>
+          </li>
+          <li>
+            <a href="#" class="tab-underlined">Popular</a>
+          </li>
+        </ul>
         <% @posts.each do |post| %>
           <div class="row">
             <div class="col-sm-12">
@@ -38,26 +49,6 @@
         <% end %>
       </div>
       <%#= render 'form', post: @post %>
-      <div class="col-sm-4">
-        <div class="side-bar">
-          <div class="make-thread">
-            <h4>Anything on your mind? </h4>
-            <p>
-              Make a thread and let's talk about it!
-            </p>
-            <%= link_to "Make a thread", new_post_path, class: "btn-flat-side-bar" %>
-          </div>
-          <div class="side-bar-category">
-            <h3>Popular Categories:</h3>
-            <ul>
-              <% ActsAsTaggableOn::Tag.most_used(10).each do |category| %>
-                <li>
-                  <%= link_to category.name, categorized_path(category: category), class: "category-link" %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
+      <%= render 'side_bar' %>
     </div>
   </div>
