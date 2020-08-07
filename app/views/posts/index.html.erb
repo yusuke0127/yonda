@@ -46,78 +46,31 @@
               </div>
             <% end %>
           </div>
-          <div class="col-sm-12">
-            <% @hottest_posts.each do |post| %>
-              <div class="post-item" id="hottest">
-                <div>
-                  <small class="post-info-email">posted by:<%= post.user.email %></small>
-                  <h3><%= link_to post.title.capitalize, post_path(post), class: "post-info-title" %></h3>
-                  <% post.category_list.each do |category| %>
-                    <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
-                  <% end %>
-                </div>
-                <div class="post-item-content">
-                  <p><%= post.content %></p>
-                </div>
-                <div class="post-item-bottom">
-                  <span class="post-info-comment-count-index"><i class="far fa-thumbs-up"></i> <%= post.get_upvotes.size %></span>
-                  <span class="post-info-comment-count-index"><i class="far fa-thumbs-down"></i> <%= post.get_downvotes.size %></span>
-                  <%= link_to post_path(post), class: "post-info-comment-count-index" do %>
-                    <i class="far fa-comment-dots"></i> <%= post.comments.count %>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
-          </div>
-          <div class="col-sm-12">
-            <% @popular_posts.each do |post| %>
-              <div class="post-item" id="popular">
-                <div>
-                  <small class="post-info-email">posted by:<%= post.user.email %></small>
-                  <h3><%= link_to post.title.capitalize, post_path(post), class: "post-info-title" %></h3>
-                  <% post.category_list.each do |category| %>
-                    <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
-                  <% end %>
-                </div>
-                <div class="post-item-content">
-                  <p><%= post.content %></p>
-                </div>
-                <div class="post-item-bottom">
-                  <span class="post-info-comment-count-index"><i class="far fa-thumbs-up"></i> <%= post.get_upvotes.size %></span>
-                  <span class="post-info-comment-count-index"><i class="far fa-thumbs-down"></i> <%= post.get_downvotes.size %></span>
-                  <%= link_to post_path(post), class: "post-info-comment-count-index" do %>
-                    <i class="far fa-comment-dots"></i> <%= post.comments.count %>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
-          </div>
         </div>
       </div>
+      <%= render 'side_bar' %>
     </div>
-    <%#= render 'form', post: @post %>
-    <%= render 'side_bar' %>
   </div>
-</div>
-<script>
-  function selectTab(event, sort) {
-    const tabLinks = document.querySelectorAll(".tab-underlined");
-    const tabContents = document.querySelectorAll(".post-item");
-    const activeLink = document.querySelector(".tabs-underlined .active")
-    if(!tabLinks){
-        return
+  <%#= render 'form', post: @post %>
+  <script>
+    function selectTab(event, sort) {
+      const tabLinks = document.querySelectorAll(".tab-underlined");
+      const tabContents = document.querySelectorAll(".post-item");
+      const activeLink = document.querySelector(".tabs-underlined .active")
+      if(!tabLinks){
+          return
+      }
+        console.log('working!')
+    
+      for (let i = 0; i < tabLinks.length; i++) {
+        tabLinks[i].classList.remove("active");
+      }
+    
+      for (i = 0; i < tabContents.length; i++) {
+        tabContents[i].style.display = "none";
+      }
+    
+      event.target.classList.add('active');
+      document.getElementById(sort).style.display = "block";
     }
-      console.log('working!')
-  
-    for (let i = 0; i < tabLinks.length; i++) {
-      tabLinks[i].classList.remove("active");
-    }
-  
-    for (i = 0; i < tabContents.length; i++) {
-      tabContents[i].style.display = "none";
-    }
-  
-    event.target.classList.add('active');
-    document.getElementById(sort).style.display = "block";
-  }
-</script>
+  </script>
