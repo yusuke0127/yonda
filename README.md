@@ -10,7 +10,7 @@ bundle install
 ```
 in the terminal to install all of its dependencies.
 
-And you can run
+And then you can run
 
 ```
 rails db:seed 
