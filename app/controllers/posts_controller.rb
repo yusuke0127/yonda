@@ -3,10 +3,9 @@ class PostsController < ApplicationController
 
   def index
     @posts = policy_scope(Post).order(created_at: :desc)
-    @hottest_posts = policy_scope(Post).order(created_at: :desc)
-    @popular_posts = policy_scope(Post).order(created_at: :desc)
-
-    @post = Post.new
+    @hottest_posts = policy_scope(Post).includes(:comments).sort_by { |p| p.comments.count }
+    @popular_posts = policy_scope(Post).sort_by { |post| post.get_upvotes.size }
+    raise
   end
 
   def show

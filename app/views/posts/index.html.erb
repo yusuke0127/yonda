@@ -9,42 +9,109 @@
     <%# end %>
     <%# if user_signed_in? %>
     <div class="row">
+      <ul class="nav nav-pills mb-1 ml-4" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="pills-newest-tab" data-toggle="pill" href="#pills-newest" role="tab" aria-controls="pills-newest" aria-selected="true">Newest</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-hottest-tab" data-toggle="pill" href="#pills-hottest" role="tab" aria-controls="pills-hottest" aria-selected="false">Hottest</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-popular-tab" data-toggle="pill" href="#pills-popular" role="tab" aria-controls="pills-popular" aria-selected="false">Most liked</a>
+        </li>
+      </ul>
+      <!-- <ul class="list-inline tabs-underlined">
+        <li>
+          <a href="javascript:void(0)" class="tab-underlined active" onclick="selectTab(event, 'latest')">Latest</a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" class="tab-underlined" onclick="selectTab(event, 'hottest')">Hottest</a>
+        </li>
+        <li>
+          <a href="javascript:void(0)" class="tab-underlined"onclick="selectTab(event, 'popular')">Popular</a>
+        </li>
+      </ul> -->
+    </div>
+    <div class="row">
       <%# end %>
       <div class="col-sm-8">
-        <ul class="list-inline tabs-underlined">
-          <li>
-            <a href="javascript:void(0)" class="tab-underlined active" onclick="selectTab(event, 'latest')">Latest</a>
-          </li>
-          <li>
-            <a href="javascript:void(0)" class="tab-underlined" onclick="selectTab(event, 'hottest')">Hottest</a>
-          </li>
-          <li>
-            <a href="javascript:void(0)" class="tab-underlined"onclick="selectTab(event, 'popular')">Popular</a>
-          </li>
-        </ul>
         <div class="row">
-          <div class="col-sm-12">
-            <% @posts.each do |post| %>
-              <div class="post-item" id="latest">
-                <div>
-                  <small class="post-info-email">posted by:<%= post.user.email %></small>
-                  <h3><%= link_to post.title.capitalize, post_path(post), class: "post-info-title" %></h3>
-                  <% post.category_list.each do |category| %>
-                    <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
-                  <% end %>
-                </div>
-                <div class="post-item-content">
-                  <p><%= post.content %></p>
-                </div>
-                <div class="post-item-bottom">
-                  <span class="post-info-comment-count-index"><i class="far fa-thumbs-up"></i> <%= post.get_upvotes.size %></span>
-                  <span class="post-info-comment-count-index"><i class="far fa-thumbs-down"></i> <%= post.get_downvotes.size %></span>
-                  <%= link_to post_path(post), class: "post-info-comment-count-index" do %>
-                    <i class="far fa-comment-dots"></i> <%= post.comments.count %>
-                  <% end %>
-                </div>
+          <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-newest" role="tabpanel" aria-labelledby="pills-newest-tab">
+              <div class="col-sm-12">
+                <% @posts.each do |post| %>
+                  <div class="post-item">
+                    <div>
+                      <small class="post-info-email">posted by:<%= post.user.email %></small>
+                      <h3><%= link_to post.title.capitalize, post_path(post), class: "post-info-title" %></h3>
+                      <% post.category_list.each do |category| %>
+                        <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
+                      <% end %>
+                    </div>
+                    <div class="post-item-content">
+                      <p><%= post.content %></p>
+                    </div>
+                    <div class="post-item-bottom">
+                      <span class="post-info-comment-count-index"><i class="far fa-thumbs-up"></i> <%= post.get_upvotes.size %></span>
+                      <span class="post-info-comment-count-index"><i class="far fa-thumbs-down"></i> <%= post.get_downvotes.size %></span>
+                      <%= link_to post_path(post), class: "post-info-comment-count-index" do %>
+                        <i class="far fa-comment-dots"></i> <%= post.comments.count %>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
               </div>
-            <% end %>
+            </div>
+            <div class="tab-pane fade" id="pills-hottest" role="tabpanel" aria-labelledby="pills-hottest-tab">
+              <div class="col-sm-12">
+                <% @hottest_posts.each do |post| %>
+                  <div class="post-item">
+                    <div>
+                      <small class="post-info-email">posted by:<%= post.user.email %></small>
+                      <h3><%= link_to post.title.capitalize, post_path(post), class: "post-info-title" %></h3>
+                      <% post.category_list.each do |category| %>
+                        <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
+                      <% end %>
+                    </div>
+                    <div class="post-item-content">
+                      <p><%= post.content %></p>
+                    </div>
+                    <div class="post-item-bottom">
+                      <span class="post-info-comment-count-index"><i class="far fa-thumbs-up"></i> <%= post.get_upvotes.size %></span>
+                      <span class="post-info-comment-count-index"><i class="far fa-thumbs-down"></i> <%= post.get_downvotes.size %></span>
+                      <%= link_to post_path(post), class: "post-info-comment-count-index" do %>
+                        <i class="far fa-comment-dots"></i> <%= post.comments.count %>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="pills-popular" role="tabpanel" aria-labelledby="pills-popular-tab">
+              <div class="col-sm-12">
+                <% @popular_posts.each do |post| %>
+                  <div class="post-item">
+                    <div>
+                      <small class="post-info-email">posted by:<%= post.user.email %></small>
+                      <h3><%= link_to post.title.capitalize, post_path(post), class: "post-info-title" %></h3>
+                      <% post.category_list.each do |category| %>
+                        <%= link_to category, categorized_path(category: category), class: "btn-ghost"  %>
+                      <% end %>
+                    </div>
+                    <div class="post-item-content">
+                      <p><%= post.content %></p>
+                    </div>
+                    <div class="post-item-bottom">
+                      <span class="post-info-comment-count-index"><i class="far fa-thumbs-up"></i> <%= post.get_upvotes.size %></span>
+                      <span class="post-info-comment-count-index"><i class="far fa-thumbs-down"></i> <%= post.get_downvotes.size %></span>
+                      <%= link_to post_path(post), class: "post-info-comment-count-index" do %>
+                        <i class="far fa-comment-dots"></i> <%= post.comments.count %>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -52,25 +119,25 @@
     </div>
   </div>
   <%#= render 'form', post: @post %>
-  <script>
-    function selectTab(event, sort) {
-      const tabLinks = document.querySelectorAll(".tab-underlined");
-      const tabContents = document.querySelectorAll(".post-item");
-      const activeLink = document.querySelector(".tabs-underlined .active")
-      if(!tabLinks){
-          return
-      }
-        console.log('working!')
-    
-      for (let i = 0; i < tabLinks.length; i++) {
-        tabLinks[i].classList.remove("active");
-      }
-    
-      for (i = 0; i < tabContents.length; i++) {
-        tabContents[i].style.display = "none";
-      }
-    
-      event.target.classList.add('active');
-      document.getElementById(sort).style.display = "block";
+  <!-- <script>
+  function selectTab(event, sort) {
+    const tabLinks = document.querySelectorAll(".tab-underlined");
+    const tabContents = document.querySelectorAll(".post-item");
+    const activeLink = document.querySelector(".tabs-underlined .active")
+    if(!tabLinks){
+        return
     }
-  </script>
+      console.log('working!')
+
+    for (let i = 0; i < tabLinks.length; i++) {
+      tabLinks[i].classList.remove("active");
+    }
+
+    for (i = 0; i < tabContents.length; i++) {
+      tabContents[i].style.display = "none";
+    }
+
+    event.target.classList.add('active');
+    document.getElementById(sort).style.display = "block";
+  }
+</script> -->
