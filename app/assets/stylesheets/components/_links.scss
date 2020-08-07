@@ -28,3 +28,17 @@
   opacity: 1;
   border-bottom: 3px solid #555555;
 }
+
+.nav-pills .nav-link {
+  border-radius: 4px;
+  color: #111111;
+  transition: background 0.3s ease;
+}
+.nav-pills .nav-link:hover {
+  background: #68c2e8;
+
+}
+.nav-pills .nav-link.active {
+  color: white;
+  background: #68c2e8;
+}

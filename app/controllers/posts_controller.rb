@@ -3,7 +3,9 @@ class PostsController < ApplicationController
 
   def index
     @posts = policy_scope(Post).order(created_at: :desc)
+    # sort by having the most comment
     @hottest_posts = policy_scope(Post).includes(:comments).sort_by { |p| p.comments.count }.reverse
+    # sort by number of upvotes/likes
     @popular_posts = policy_scope(Post).sort_by { |post| post.get_upvotes.size }.reverse
   end
 
