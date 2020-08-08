@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
+  before_action :set_comment, only: [:edit, :update, :destroy]
 
   def index
     @comments = policy_scope(Comment).order(created_at: :desc)
@@ -26,13 +27,13 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @comment = Comment.find(params[:id])
+    # @comment = Comment.find(params[:id])
     @post = Post.find(params[:post_id])
     authorize @comment
   end
 
   def update
-    @comment = Comment.find(params[:id])
+    # @comment = Comment.find(params[:id])
     @post = Post.find(params[:post_id])
     authorize @comment
     if @comment.update(comment_params)
@@ -43,7 +44,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
+    # @comment = Comment.find(params[:id])
     @post = @comment.post
     authorize @comment
     @comment.destroy
@@ -54,5 +55,9 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:content)
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:id])
   end
 end
