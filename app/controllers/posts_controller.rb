@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show, :categorized, :search_post]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :vote]
 
   def index
     @posts = policy_scope(Post).order(created_at: :desc)
@@ -10,7 +11,6 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
     @related_posts = @post.find_related_categories
     @comments = @post.comments.reverse
     @comment = Comment.new
@@ -39,12 +39,10 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find(params[:id])
     authorize @post
   end
 
   def update
-    @post = Post.find(params[:id])
     authorize @post
     if @post.update(post_params)
       redirect_to post_path(@post)
@@ -54,7 +52,6 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
     authorize @post
     @post.destroy
     redirect_to posts_path
@@ -84,7 +81,6 @@ class PostsController < ApplicationController
   end
 
   def vote
-    @post = Post.find(params[:id])
     @related_posts = @post.find_related_categories
     @comments = @post.comments.reverse
     @comment = Comment.new
@@ -101,5 +97,9 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :content, category_list: [])
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 end
