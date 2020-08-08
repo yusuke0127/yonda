@@ -61,13 +61,16 @@ class PostsController < ApplicationController
   end
 
   def categorized
-    if params[:category].present?
+    if params[:category].present? && params[:category].to_i
+      @posts = Post.tagged_with(Post.category_counts.find { |i| i.id == params[:category].to_i }.name)
+      @category = Post.category_counts.find { |i| i.id == params[:category].to_i }.name
+    elsif params[:category].present? && !params[:category].to_i
       @posts = Post.tagged_with(params[:category])
       @category = params[:category]
-      authorize @posts
     else
       redirect_to posts_path
     end
+    authorize @posts
   end
 
   def search_post
