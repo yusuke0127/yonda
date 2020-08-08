@@ -109,7 +109,9 @@
                 <p><%= post.content %></p>
               </div>
               <div class="post-item-bottom">
-                <%= link_to post_path(post), class: "post-info-comment-count" do %>
+                <span class="post-info-comment-count-index"><i class="far fa-thumbs-up"></i> <%= post.get_upvotes.size %></span>
+                <span class="post-info-comment-count-index"><i class="far fa-thumbs-down"></i> <%= post.get_downvotes.size %></span>
+                <%= link_to post_path(post), class: "post-info-comment-count-index" do %>
                   <i class="far fa-comment-dots"></i> <%= post.comments.count %>
                 <% end %>
               </div>
