@@ -1,0 +1,6 @@
+.row
+  .col-xs-12.col-sm-6.offset-sm-3
+    .post-item-form
+      = simple_form_for ([ @post, @comment ]) do |f|
+        = f.input :content
+        = f.submit  "Add Comment", class: "btn btn-primary"

@@ -1,0 +1,80 @@
+.container.mt-5
+  .row
+    %ul#pills-tab.nav.nav-pills.mb-1.ml-4{:role => "tablist"}
+      %li.nav-item.mr-2
+        %a#pills-newest-tab.nav-link.active{"aria-controls" => "pills-newest", "aria-selected" => "true", "data-toggle" => "pill", :href => "#pills-newest", :role => "tab"} Newest
+      %li.nav-item.mr-2
+        %a#pills-hottest-tab.nav-link{"aria-controls" => "pills-hottest", "aria-selected" => "false", "data-toggle" => "pill", :href => "#pills-hottest", :role => "tab"} Hottest
+      %li.nav-item.mr-2
+        %a#pills-popular-tab.nav-link{"aria-controls" => "pills-popular", "aria-selected" => "false", "data-toggle" => "pill", :href => "#pills-popular", :role => "tab"} Most liked
+  .row
+    .col-sm-8
+      .row
+        #pills-tabContent.tab-content
+          #pills-newest.tab-pane.fade.show.active{"aria-labelledby" => "pills-newest-tab", :role => "tabpanel"}
+            .col-sm-12
+              - @posts.each do |post|
+                .post-item
+                  %div
+                    %small.post-info-email
+                      posted by:#{post.user.email}
+                    %h3= link_to post.title.capitalize, post_path(post), class: "post-info-title"
+                    - post.category_list.each do |category|
+                      = link_to category, categorized_path(category: category), class: "btn-ghost"
+                  .post-item-content
+                    %p= post.content
+                  .post-item-bottom
+                    %span.post-info-comment-count-index
+                      %i.far.fa-thumbs-up
+                      = post.get_upvotes.size
+                    %span.post-info-comment-count-index
+                      %i.far.fa-thumbs-down
+                      = post.get_downvotes.size
+                    = link_to post_path(post), class: "post-info-comment-count-index" do
+                      %i.far.fa-comment-dots
+                      = post.comments.count
+          #pills-hottest.tab-pane.fade{"aria-labelledby" => "pills-hottest-tab", :role => "tabpanel"}
+            .col-sm-12
+              - @hottest_posts.each do |post|
+                .post-item
+                  %div
+                    %small.post-info-email
+                      posted by:#{post.user.email}
+                    %h3= link_to post.title.capitalize, post_path(post), class: "post-info-title"
+                    - post.category_list.each do |category|
+                      = link_to category, categorized_path(category: category), class: "btn-ghost"
+                  .post-item-content
+                    %p= post.content
+                  .post-item-bottom
+                    %span.post-info-comment-count-index
+                      %i.far.fa-thumbs-up
+                      = post.get_upvotes.size
+                    %span.post-info-comment-count-index
+                      %i.far.fa-thumbs-down
+                      = post.get_downvotes.size
+                    = link_to post_path(post), class: "post-info-comment-count-index" do
+                      %i.far.fa-comment-dots
+                      = post.comments.count
+          #pills-popular.tab-pane.fade{"aria-labelledby" => "pills-popular-tab", :role => "tabpanel"}
+            .col-sm-12
+              - @popular_posts.each do |post|
+                .post-item
+                  %div
+                    %small.post-info-email
+                      posted by:#{post.user.email}
+                    %h3= link_to post.title.capitalize, post_path(post), class: "post-info-title"
+                    - post.category_list.each do |category|
+                      = link_to category, categorized_path(category: category), class: "btn-ghost"
+                  .post-item-content
+                    %p= post.content
+                  .post-item-bottom
+                    %span.post-info-comment-count-index
+                      %i.far.fa-thumbs-up
+                      = post.get_upvotes.size
+                    %span.post-info-comment-count-index
+                      %i.far.fa-thumbs-down
+                      = post.get_downvotes.size
+                    = link_to post_path(post), class: "post-info-comment-count-index" do
+                      %i.far.fa-comment-dots
+                      = post.comments.count
+    = render 'side_bar'
