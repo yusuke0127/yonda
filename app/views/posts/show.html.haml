@@ -1,0 +1,86 @@
+.container.mt-5
+  .row
+    .col-xs-12.col-sm-7
+      .row
+        .col-xs-12.col-sm-12
+          .post-item
+            = link_to posts_path, class: "post-info-comment-count" do
+              %i.fas.fa-arrow-circle-left
+            %div
+              %small.post-info-email
+                posted by:#{@post.user.email}
+              %h2= @post.title
+              - @post.category_list.each do |category|
+                = link_to category, categorized_path(category: category), class: "btn-ghost"
+            .post-item-content-show
+              %p= @post.content
+            .post-item-bottom-show{"data-controller" => "counter"}
+              %div
+                = link_to vote_post_path(@post, 'upvote'), method: :put, data: { target: "counter.id", action: "click->counter#refresh" }, remote: :true, class: "post-info-comment-count#{current_user.nil? ? "" : ((current_user.liked? @post) ? "-selected" : "")}", id: "upvote" do
+                  %i.far.fa-thumbs-up
+                  %span{"data-target" => "counter.count"}= @post.get_upvotes.size
+                = link_to vote_post_path(@post, 'downvote'), method: :put, class: "post-info-comment-count#{current_user.nil? ? "" : ((current_user.disliked? @post) ? "-selected" : "")}",id: "downvote" do
+                  %i.far.fa-thumbs-down
+                  %span= @post.get_downvotes.size
+              %div
+                - if policy(@post).update?
+                  = link_to edit_post_path(@post), class: "post-info-comment-count", id: "edit" do
+                    %i.fas.fa-edit
+                - if policy(@post).destroy?
+                  = link_to post_path(@post), method: :delete, data: { confirm: "Are you sure?" }, remote: true, class: "post-info-comment-count" do
+                    %i.fas.fa-trash-alt
+      .row
+        .col-xs-12.col-sm-12
+          .comment-item-list
+            %h2 Comments
+            - if !user_signed_in?
+              %p
+                Want to comment? Log in #{link_to "here", new_user_session_path, class: "button-link"}
+            - if user_signed_in?
+              .comment-item-form
+                = simple_form_for([ @post, @comment ], remote: true)do |f|
+                  = f.input :content, label: false, placeholder: "What's your thoughts?"
+                  .post-item-bottom
+                    = f.submit  "Comment", class: "btn btn-flat"
+            - @post.comments.each do |comment|
+              .comment-item
+                %hr/
+                %div
+                  %small.post-info-email
+                    commented by:#{comment.post.user.email}
+                .post-item-content
+                  %p= comment.content
+                .post-item-bottom
+                  - if policy(comment).update?
+                    = link_to edit_post_comment_path(@post, comment), class: "post-info-comment-count" do
+                      %i.fas.fa-edit
+                  - if policy(comment).destroy?
+                    = link_to comment, method: :delete, data: { confirm: "Are you sure?"}, remote: true, class: "post-info-comment-count" do
+                      %i.fas.fa-trash-alt
+    .col-xs-12.col-sm-5
+      .row
+        .col-xs-12.col-sm-12
+          .post-item
+            %h2 Related post:
+      - @related_posts.each do |post|
+        .row
+          .col-xs-12.col-sm-12
+            .post-item
+              %div
+                %small.post-info-email
+                  posted by:#{post.user.email}
+                %h3= link_to post.title.capitalize, post_path(post), class: "post-info-title"
+                - post.category_list.each do |category|
+                  = link_to category, categorized_path(category: category), class: "btn-ghost"
+              .post-item-content
+                %p= post.content
+              .post-item-bottom
+                %span.post-info-comment-count-index
+                  %i.far.fa-thumbs-up
+                  = post.get_upvotes.size
+                %span.post-info-comment-count-index
+                  %i.far.fa-thumbs-down
+                  = post.get_downvotes.size
+                = link_to post_path(post), class: "post-info-comment-count-index" do
+                  %i.far.fa-comment-dots
+                  = post.comments.count

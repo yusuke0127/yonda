@@ -1,0 +1,11 @@
+.row.mt-5
+  .col-xs-12.col-sm-6.offset-sm-3
+    .post-item-form
+      = link_to post_path(@post), class: "post-info-comment-count" do
+        %i.fas.fa-arrow-circle-left
+      .form-title
+        %h3 Edit your Comment
+      = simple_form_for ([ @post, @comment ]) do |f|
+        = f.input :content, label: false
+        .post-item-bottom
+          = f.submit  "Add Comment", class: "btn btn-flat"

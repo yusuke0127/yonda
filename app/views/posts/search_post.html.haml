@@ -1,0 +1,30 @@
+.row
+  .col-xs-12.col-sm-6.offset-sm-3
+    .post-item
+      = link_to posts_path, class: "post-info-comment-count" do
+        %i.fas.fa-arrow-circle-left
+      %span
+        Search results for:
+        %strong= @query
+- @posts.each do |post|
+  .row
+    .col-xs-12.col-sm-6.offset-sm-3
+      .post-item
+        %div
+          %small.post-info-email
+            posted by:#{post.user.email}
+          %h3= link_to post.title.capitalize, post_path(post), class: "post-info-title"
+          - post.category_list.each do |category|
+            = link_to category, categorized_path(category: category), class: "btn-ghost"
+        .post-item-content
+          %p= post.content
+        .post-item-bottom
+          %span.post-info-comment-count-index
+            %i.far.fa-thumbs-up
+            = post.get_upvotes.size
+          %span.post-info-comment-count-index
+            %i.far.fa-thumbs-down
+            = post.get_downvotes.size
+          = link_to post_path(post), class: "post-info-comment-count-index" do
+            %i.far.fa-comment-dots
+            = post.comments.count

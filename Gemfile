@@ -32,6 +32,7 @@ gem 'acts_as_votable'
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'devise'
 gem 'faker'
+gem "haml-rails", "~> 2.0"
 gem 'pundit'
 gem 'pg_search', '~> 2.3.0'
 gem 'turbolinks_render'

@@ -1,0 +1,15 @@
+/ <div class="row"> offset-sm-3
+.col-xs-12.col-sm-5
+  .post-item-form
+    .form-title
+      %h3 Make a Thread
+    - collection = [ "Sports", "News", "Music" ]
+    = simple_form_for(@post) do |f|
+      = f.input :title, label: false, placeholder: "Title"
+      = f.input :content, label: false, placeholder: "Content"
+      = select_tag "post[category_list][]", options_from_collection_for_select( |
+        ActsAsTaggableOn::Tag.all.order("LOWER(name) ASC"),                     |
+        :name, :name),                                                          |
+        class: 'select2', multiple: 'multiple'                                  |
+      = f.submit "Confirm", class: "btn btn-flat-add"
+/ </div>
