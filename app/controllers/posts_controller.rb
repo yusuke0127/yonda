@@ -27,17 +27,18 @@ class PostsController < ApplicationController
   end
 
   def create
-    @posts = policy_scope(Post).order(created_at: :desc)
+    @posts = policy_scope(Post).includes(:comments).order(created_at: :desc)
     @post = Post.new(post_params)
     @post.user = current_user
     authorize @post
+    @post.save!
     begin
-      @post.save!
       redirect_to post_path(@post) if @post.persisted?
+      return
     rescue ActiveRecord::RecordInvalid => e
       puts e.record.errors
     end
-    render :index
+    redirect_to posts_path
   end
 
   def edit
@@ -74,9 +75,9 @@ class PostsController < ApplicationController
 
   def search_post
     if params[:query].present?
-      @posts = Post.search_by_title_and_content(params[:query])
+      @posts = Post.search_by_title_and_content(params[:query]).includes(:comments)
     else
-      @posts = policy_scope(Post).order(created_at: :desc)
+      @posts = policy_scope(Post).includes(:comments).order(created_at: :desc)
     end
     @query = params[:query]
     authorize @posts

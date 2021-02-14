@@ -303,6 +303,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   font-awesome-sass
+  haml
   haml-rails (~> 2.0)
   jbuilder (~> 2.7)
   launchy
