@@ -1,13 +1,13 @@
 class PostsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show, :categorized, :search_post]
-  before_action :set_post, only: [:show, :edit, :update, :destroy, :vote]
+  skip_before_action :authenticate_user!, only: %i[index show categorized search_post]
+  before_action :set_post, only: %i[show edit update destroy vote]
 
   def index
-    @posts = policy_scope(Post).order(created_at: :desc)
+    @posts = policy_scope(Post).includes(:comments).order(created_at: :desc)
     # sort by having the most comment
     @hottest_posts = policy_scope(Post).includes(:comments).sort_by { |p| p.comments.count }.reverse
     # sort by number of upvotes/likes
-    @popular_posts = policy_scope(Post).sort_by { |post| post.get_upvotes.size }.reverse
+    @popular_posts = policy_scope(Post).includes(:comments).sort_by { |post| post.get_upvotes.size }.reverse
   end
 
   def show
@@ -31,11 +31,13 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user = current_user
     authorize @post
-    if @post.save
-      redirect_to post_path(@post)
-    else
-      render :index
+    begin
+      @post.save!
+      redirect_to post_path(@post) if @post.persisted?
+    rescue ActiveRecord::RecordInvalid => e
+      puts e.record.errors
     end
+    render :index
   end
 
   def edit
@@ -58,10 +60,10 @@ class PostsController < ApplicationController
   end
 
   def categorized
-    if params[:category].present? && params[:category].to_i
+    if params[:category].present? && params[:category].to_i != 0
       @posts = Post.tagged_with(Post.category_counts.find { |i| i.id == params[:category].to_i }.name)
       @category = Post.category_counts.find { |i| i.id == params[:category].to_i }.name
-    elsif params[:category].present? && !params[:category].to_i
+    elsif params[:category].present? && params[:category].to_i == 0
       @posts = Post.tagged_with(params[:category])
       @category = params[:category]
     else
