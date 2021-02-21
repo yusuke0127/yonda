@@ -12,8 +12,7 @@ class PostsController < ApplicationController
 
   def show
     @related_posts = @post.find_related_categories
-    # @comments = @post.comments.reverse.page params[:page]
-    @comments = @post.comments.order(created_at: :desc).page params[:page]
+    @comments = @post.comments.order(created_at: :desc)
     @comment = Comment.new
     authorize @post
     respond_to do |format|
