@@ -1,5 +1,5 @@
-.container.mt-5
-  .row
+.container.mt-5.pt-5
+  .row.mt-5
     .col-xs-12.col-sm-7
       .row
         .col-xs-12.col-sm-12
@@ -42,7 +42,7 @@
                   = f.input :content, label: false, placeholder: "What's your thoughts?"
                   .post-item-bottom
                     = f.submit  "Comment", class: "btn btn-flat"
-            - @post.comments.each do |comment|
+            - @comments.each do |comment|
               .comment-item
                 %hr/
                 %div

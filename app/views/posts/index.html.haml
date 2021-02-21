@@ -1,5 +1,5 @@
-.container.mt-5
-  .row
+.container.mt-5.pt-5
+  .row.mt-5
     %ul#pills-tab.nav.nav-pills.mb-1.ml-4{:role => "tablist"}
       %li.nav-item.mr-2
         %a#pills-newest-tab.nav-link.active{"aria-controls" => "pills-newest", "aria-selected" => "true", "data-toggle" => "pill", :href => "#pills-newest", :role => "tab"} Newest
@@ -78,3 +78,4 @@
                       %i.far.fa-comment-dots
                       = post.comments.count
     = render 'side_bar'
+
