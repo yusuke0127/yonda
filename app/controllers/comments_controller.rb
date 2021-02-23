@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :show]
-  before_action :set_comment, only: [:edit, :update, :destroy]
+  skip_before_action :authenticate_user!, only: %i[index show]
+  before_action :set_comment, only: %i[edit update destroy]
 
   def index
     @comments = policy_scope(Comment).order(created_at: :desc)
@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @post = Post.find(params[:post_id])
-    @related_posts = @post.find_related_categories
+    @related_posts = @post.find_related_categories.includes(:user, :taggings)
     @comment.post = @post
     @comment.user = current_user
     authorize @comment

@@ -39,7 +39,7 @@
             - if user_signed_in?
               .comment-item-form
                 = simple_form_for([ @post, @comment ], remote: true)do |f|
-                  = f.input :content, label: false, placeholder: "What's your thoughts?"
+                  = f.input :content, require: true, label: false, placeholder: "What's your thoughts?"
                   .post-item-bottom
                     = f.submit  "Comment", class: "btn btn-flat"
             - @comments.each do |comment|
