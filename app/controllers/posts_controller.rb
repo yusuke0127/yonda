@@ -3,16 +3,16 @@ class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy vote]
 
   def index
-    @posts = policy_scope(Post).includes(:comments).order(created_at: :desc)
+    @posts = policy_scope(Post).includes(:user, :taggings).order(created_at: :desc)
     # sort by having the most comment
-    @hottest_posts = policy_scope(Post).includes(:comments).sort_by { |p| p.comments.count }.reverse
+    @hottest_posts = policy_scope(Post).includes(:user, :taggings).sort_by { |p| p.comments.count }.reverse
     # sort by number of upvotes/likes
-    @popular_posts = policy_scope(Post).includes(:comments).sort_by { |post| post.get_upvotes.size }.reverse
+    @popular_posts = policy_scope(Post).includes(:user, :taggings).sort_by { |post| post.get_upvotes.size }.reverse
   end
 
   def show
-    @related_posts = @post.find_related_categories
-    @comments = @post.comments.order(created_at: :desc)
+    @related_posts = @post.find_related_categories.includes(:user, :taggings)
+    @comments = @post.comments.order(created_at: :desc).includes(:user)
     @comment = Comment.new
     authorize @post
     respond_to do |format|
@@ -62,10 +62,10 @@ class PostsController < ApplicationController
 
   def categorized
     if params[:category].present? && params[:category].to_i != 0
-      @posts = Post.tagged_with(Post.category_counts.find { |i| i.id == params[:category].to_i }.name)
+      @posts = Post.tagged_with(Post.category_counts.find { |i| i.id == params[:category].to_i }.name).includes(:user, :taggings)
       @category = Post.category_counts.find { |i| i.id == params[:category].to_i }.name
     elsif params[:category].present? && params[:category].to_i == 0
-      @posts = Post.tagged_with(params[:category])
+      @posts = Post.tagged_with(params[:category]).includes(:user, :taggings)
       @category = params[:category]
     else
       redirect_to posts_path
@@ -75,9 +75,9 @@ class PostsController < ApplicationController
 
   def search_post
     if params[:query].present?
-      @posts = Post.search_by_title_and_content(params[:query]).includes(:comments)
+      @posts = Post.search_by_title_and_content(params[:query]).includes(:user, :taggings)
     else
-      @posts = policy_scope(Post).includes(:comments).order(created_at: :desc)
+      @posts = policy_scope(Post).includes(:user, :taggings).order(created_at: :desc)
     end
     @query = params[:query]
     authorize @posts
