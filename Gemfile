@@ -33,6 +33,7 @@ gem 'acts-as-taggable-on', '~> 6.0'
 gem 'devise'
 gem 'faker'
 gem "haml-rails", "~> 2.0"
+gem 'rack-mini-profiler'
 gem 'pundit'
 gem 'haml'
 gem 'kaminari'
