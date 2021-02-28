@@ -8,12 +8,12 @@ RSpec.feature "Posts", type: :feature do
     # user = FactoryBot.create(:user)
     login_as user, scope: :user
 
-    visit root_path
+    visit('/posts/new')
 
     expect do
       fill_in_new_thread_form
       expect(page).to have_content "Test Post"
-      expect(page).to have_content "#{user.email}"
+      expect(page).to have_content user.email.to_s
     end.to change(user.posts, :count).by(1)
   end
 
@@ -27,9 +27,6 @@ RSpec.feature "Posts", type: :feature do
   end
 
   scenario "user adds a new comment" do
-    # user = FactoryBot.create(:user)
-    # post = FactoryBot.create(:post, user: user)
-
     login_as user, scope: :user
 
     visit(post_path(post))
@@ -49,10 +46,7 @@ RSpec.feature "Posts", type: :feature do
   end
 
   scenario "a guest creates a new post" do
-    visit root_path
-
-    fill_in_new_thread_form
-
+    visit('/posts/new')
     expect(current_path).to eq(new_user_session_path)
   end
 
@@ -83,8 +77,8 @@ RSpec.feature "Posts", type: :feature do
   end
 
   def fill_in_new_thread_form
-    fill_in "Title", with: "Test Post"
-    fill_in "Content", with: "Trying out Capybara"
+    fill_in "post_title", with: "Test Post"
+    fill_in "post_content", with: "Trying out Capybara"
     click_button "Confirm"
   end
 

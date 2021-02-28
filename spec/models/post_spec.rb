@@ -33,20 +33,21 @@ RSpec.describe Post, type: :model do
     expect(post.errors[:user]).to include("must exist")
   end
 
-  it "does not allow duplicate project names per user" do
-    @user.posts.create(
-      title: "Test",
-      content: "Test content"
-    )
+  # Currently disabled coz still unsure whether uniqueness validation is needed for posts
+  # it "does not allow duplicate project names per user" do
+  #   @user.posts.create(
+  #     title: "Test",
+  #     content: "Test content"
+  #   )
 
-    new_project = @user.posts.build(
-      title: "Test",
-      content: "Test content"
-    )
+  #   new_project = @user.posts.build(
+  #     title: "Test",
+  #     content: "Test content"
+  #   )
 
-    new_project.valid?
-    expect(new_project.errors[:title]).to include("has already been taken")
-  end
+  #   new_project.valid?
+  #   expect(new_project.errors[:title]).to include("has already been taken")
+  # end
 
   it "can have many comments" do
     post = FactoryBot.create(:post, :with_comments)
