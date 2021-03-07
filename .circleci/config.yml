@@ -10,6 +10,9 @@ jobs:
   build: # our first job, named "build"
     docker:
       - image: cimg/ruby:2.6.6-node-browsers # use a tailored CircleCI docker image.
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
 
     working_directory: ~/reddit-mvp
 
@@ -29,7 +32,13 @@ jobs:
     # here we set TWO docker images.
     docker:
       - image: cimg/ruby:2.6.6-node # this is our primary docker image, where step commands run.
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
       - image: circleci/postgres:9.5-alpine
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
         environment: # add POSTGRES environment variables.
           POSTGRES_USER: reddit-mvp
           POSTGRES_DB: reddit-mvp_test
