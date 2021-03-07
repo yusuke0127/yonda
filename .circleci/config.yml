@@ -34,32 +34,7 @@ jobs:
           POSTGRES_USER: reddit-mvp
           POSTGRES_DB: reddit-mvp_test
           POSTGRES_PASSWORD: ""
-
-
-    # environment variables specific to Ruby/Rails, applied to the primary container.
-    environment:
-      BUNDLE_JOBS: "3"
-      BUNDLE_RETRY: "3"
-      PGHOST: 127.0.0.1
-      PGUSER: reddit-mvp
-      PGPASSWORD: ""
-      RAILS_ENV: test
-    # A series of steps to run, some are similar to those in "build".
-    steps:
-      - checkout 
-      - ruby/install-deps 
-      - node/install-packages:
-          pkg-manager: yarn
-          cache-key: "yarn.lock"
-      # Here we make sure that the secondary container boots 
-      # up before we run operations on the database.
-      - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run:
-          name: Database setup
-          command: bundle exec rails db:schema:load --trace
-      # Run rspec in parallel # environment variables specific to Ruby/Rails, applied to the primary container.
+    #environment variables specific to Ruby/Rails, applied to the primary container.
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
