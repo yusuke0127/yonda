@@ -9,12 +9,12 @@ jobs:
           PGHOST: localhost
           PGUSER: reddit-mvp
           RAILS_ENV: test
-          RACK_ENV: development
-      - image: postgres:9.5
+          RACK_ENV: test
+      - image: postgres:9.5-alpine
         environment:
           POSTGRES_USER: reddit-mvp   
           POSTGRES_DB: reddit-mvp_test
-          POSTGRES_PASSWORD: ""
+          POSTGRES_PASSWORD: postgres 
     steps:
       - checkout
 
