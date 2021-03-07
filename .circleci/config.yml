@@ -31,7 +31,7 @@ jobs:
     parallelism: 3 
     # here we set TWO docker images.
     docker:
-      - image: cimg/ruby:2.6.6-node # this is our primary docker image, where step commands run.
+      - image: cimg/ruby:2.6.6-node-browsers # this is our primary docker image, where step commands run.
         auth:
           username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
@@ -47,7 +47,8 @@ jobs:
     environment:
       BUNDLE_JOBS: "3"
       BUNDLE_RETRY: "3"
-      PGHOST: 127.0.0.1 # Localhost
+      # Localhost
+      PGHOST: 127.0.0.1 
       PGUSER: reddit-mvp
       PGPASSWORD: ""
       RAILS_ENV: test
