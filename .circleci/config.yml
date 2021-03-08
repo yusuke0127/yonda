@@ -24,6 +24,9 @@ jobs:
       # Bundle install dependencies
       - run: bundle install --path
 
+      # Yarn install
+      - run: bin/yarn install --cache-folder vendor/node_modules
+
       # Wait for DB
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
 
