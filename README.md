@@ -1,4 +1,4 @@
-TEEST
+TEST
 
 # Yonda
 
