@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6'
+ruby '3.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
+gem 'rails', '7.0.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -29,7 +29,7 @@ gem 'redis', '~> 4.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'acts_as_votable'
-gem 'acts-as-taggable-on', '~> 6.0'
+gem 'acts-as-taggable-on', '~> 9.0'
 gem 'devise'
 gem 'faker'
 gem "haml-rails", "~> 2.0"
@@ -43,8 +43,13 @@ gem 'pg_search', '~> 2.3.0'
 gem 'turbolinks_render'
 
 gem 'autoprefixer-rails'
-gem 'font-awesome-sass'
+# gem 'font-awesome-sass'
+gem "font-awesome-sass", "~> 6.2.1"
+
 gem 'simple_form'
+# Stop gap fix for Ruby 3.1 and Psych 4.x incompatibility
+gem 'psych', '< 4'
+
 group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
