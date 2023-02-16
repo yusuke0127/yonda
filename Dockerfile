@@ -31,6 +31,10 @@ ENTRYPOINT ["entrypoint.sh"]
 # Expose port 3000
 EXPOSE 3000
 
+# Compile assets
+ARG RAILS_ENV=development
+RUN if [ "$RAILS_ENV" = "production" ]; then SECRET_KEY_BASE=$(rake secret) bundle exec rake assets:precompile; fi
+
 # Set "rails server -b 0.0.0.0" as the command to
 # run when this container starts.
 CMD ["rails", "server", "-b", "0.0.0.0"]
