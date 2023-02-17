@@ -1,6 +1,6 @@
 # Yonda
 
-A reddit MVP where you can log in as a user, create and upvote/downvote thread and comment on threads.
+A reddit clone where you can log in as a user, create and upvote/downvote thread and comment on threads. Using Rails for the Web server, Docker for containerization, Github actions for Continuous Integration and deployed to Heroku.      
 
 ## Getting Started
 
