@@ -7,19 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Setup Docker
-        shell: bash
-        run: |
-          docker-compose run web yarn install --check-files
-          docker-compose run web yarn upgrade
-          docker-compose build
-          docker-compose run web rails db:create
-        env:
-          RAILS_ENV: test
-
       - name: Run RSpec
         shell: bash
         run: |
-          docker-compose up run bundle exec rspec
+          docker-compose up run web bundle exec rspec
         env:
           RAILS_ENV: test
