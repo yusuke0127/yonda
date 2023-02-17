@@ -1,0 +1,22 @@
+name: RSpec
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Docker
+        shell: bash
+          docker-compose build
+          docker-compose run web rails db:create
+        env:
+          RAILS_ENV: test
+
+      - name: Run RSpec
+        shell: bash
+        run: |
+          docker-compose up run bundle exec rspec
+        env:
+          RAILS_ENV: test
