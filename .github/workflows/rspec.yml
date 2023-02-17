@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup Docker
+      - name: Setup Test DB
         shell: bash
-          docker-compose build
+        run: |
           docker-compose run web rails db:create
         env:
           RAILS_ENV: test
@@ -17,6 +17,6 @@ jobs:
       - name: Run RSpec
         shell: bash
         run: |
-          docker-compose up run bundle exec rspec
+        docker-compose run bundle exec rspec
         env:
           RAILS_ENV: test
