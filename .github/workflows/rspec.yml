@@ -10,6 +10,6 @@ jobs:
       - name: Run RSpec
         shell: bash
         run: |
-          docker-compose up run web bundle exec rspec
+          docker-compose run web bundle exec rspec
         env:
           RAILS_ENV: test
